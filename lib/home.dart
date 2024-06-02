@@ -16,7 +16,11 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
   );
 
   final conDiaryTitle = Container(
-    child: Text("${diaryModel.title}"),
+    width: 250,
+    alignment: Alignment.centerLeft,
+    child: Text(
+      "${diaryModel.title}",
+    ),
   );
 
 
@@ -31,6 +35,7 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
   }
 
   final moreButton = ElevatedButton(
+
     onPressed: moreDiary,
     child: Text("さらに見る"),
     style: ElevatedButton.styleFrom(
@@ -39,24 +44,24 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
     ),
   );
 
-  final conButtonMore = Container(
-    // 横いっぱいにコンテナを広げて、ボタンを右に配置したい
-    width: double.infinity,
-    alignment: Alignment.bottomRight,
-    child: moreButton,
-  );
 
   final rowHomeDiaryButtom = Row(
+    mainAxisAlignment: MainAxisAlignment.end,
     children: [
       conDiaryTitle,
-      conButtonMore,
+      moreButton,
     ],
+  );
+
+  final conRow = Container(
+    padding: EdgeInsets.all(10),
+    child:rowHomeDiaryButtom,
   );
 
   final colHomeDiary = Column(
     children: [
       rowHomeDiaryTop,
-      rowHomeDiaryButtom,
+      conRow,
     ],
   );
 
