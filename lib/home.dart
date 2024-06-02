@@ -35,14 +35,21 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
     child: Text("さらに見る"),
     style: ElevatedButton.styleFrom(
         backgroundColor: Colors.cyan,
-        foregroundColor: Colors.black12
+        foregroundColor: Colors.white
     ),
+  );
+
+  final conButtonMore = Container(
+    // 横いっぱいにコンテナを広げて、ボタンを右に配置したい
+    width: double.infinity,
+    alignment: Alignment.bottomRight,
+    child: moreButton,
   );
 
   final rowHomeDiaryButtom = Row(
     children: [
       conDiaryTitle,
-      moreButton,
+      conButtonMore,
     ],
   );
 
