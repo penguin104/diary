@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+import 'home.dart';
+
+
+
+class newDiary extends StatelessWidget {
+  const newDiary({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final titleController = TextEditingController();
+    final titleText = TextField(
+      controller: titleController,
+      decoration: InputDecoration(
+        border: UnderlineInputBorder(),
+        labelText: "タイトル",
+      ),
+    );
+
+    final conTitle = Container(
+      alignment: Alignment.center,
+      width: 300,
+      child: titleText,
+    );
+
+    final textMain =TextEditingController();
+    final mainDiary = TextField(
+      controller: textMain,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: "本文を入力",
+      ),
+    );
+    final conMain = Container(
+      width: 400,
+      height: 400,
+      child: mainDiary,
+      alignment: Alignment.center,
+    );
+
+    void upLoad(){
+      debugPrint("upload");
+    }
+    final newDiaryUp = ElevatedButton(
+        onPressed: upLoad,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.teal,
+        ),
+        child: Text(
+          "日記を書き込む",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        )
+    );
+
+    final conButtonNew = Container(
+      width: 500,
+      child: newDiaryUp,
+    );
+
+    final col = Column(
+      children: [
+        conTitle,
+        conMain,
+        conButtonNew
+      ],
+      mainAxisAlignment: MainAxisAlignment.center,
+    );
+    final conNewDiaryView = Container(
+      width: 500,
+      child:col,
+    );
+
+    return conNewDiaryView;
+  }
+}
+// 本文のところの大きさなんとか白
+
+

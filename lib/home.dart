@@ -127,7 +127,8 @@ class homeView extends StatelessWidget {
         title: Text(
           "Home",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.white
+            ,
           ),
         ),
       ),
