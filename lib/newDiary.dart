@@ -42,6 +42,9 @@ class newDiary extends StatelessWidget {
     );
 
     void upLoad(){
+      debugPrint(textMain.text);//本文
+
+      textMain.text = "";//空白にする
       debugPrint("upload");
     }
     final newDiaryUp = ElevatedButton(
