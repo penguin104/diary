@@ -27,14 +27,16 @@ class newDiary extends StatelessWidget {
     final textMain =TextEditingController();
     final mainDiary = TextField(
       controller: textMain,
+      maxLines: null,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(vertical: 1),
         border: OutlineInputBorder(),
         labelText: "本文を入力",
       ),
     );
     final conMain = Container(
       width: 400,
-      height: 400,
+      height: 200,
       child: mainDiary,
       alignment: Alignment.center,
     );
@@ -73,7 +75,22 @@ class newDiary extends StatelessWidget {
       child:col,
     );
 
-    return conNewDiaryView;
+    final newDiaryScafold = Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.teal,
+        title: Text(
+          "New Diary",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: Center(
+        child:conNewDiaryView,
+      ),
+    );
+
+    return newDiaryScafold;
   }
 }
 // 本文のところの大きさなんとか白
