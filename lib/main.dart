@@ -12,7 +12,7 @@ void main() {
   final newDiaryWidget = newDiary();
   final a = MaterialApp(
     home: Scaffold(
-      body: newDiaryWidget,
+      body: homeViewWidget,
     ),
   );
   runApp(a);

@@ -8,9 +8,26 @@ class diary{
   diary(this.date,this.title,this.diaryText);
 }
 
-final List diaryModel = [diary("2024/6/2", "test", "ttttest")];//日記ウィジットをaddしていく
+final List diaryModel = [//test model
+  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),
+  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),  diary("2024/6/2", "test", "ttttest"),
+  diary("2024/6/5", "penguin", "penguin"),
 
-Widget modelToHomeDiaryWidget(diary diaryModel){
+];//日記ウィジットをaddしていく
+
+Widget modelToHomeDiaryWidget(diary diaryModel){//日記リストウィジェット
   final conDate = Container(
     child: Text("${diaryModel.date}"),
   );
@@ -20,6 +37,10 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
     alignment: Alignment.centerLeft,
     child: Text(
       "${diaryModel.title}",
+      style: TextStyle(
+        fontSize: 25,
+        color: Colors.white,
+      ),
     ),
   );
 
@@ -55,6 +76,7 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
 
   final conRow = Container(
     padding: EdgeInsets.all(10),
+
     child:rowHomeDiaryButtom,
   );
 
@@ -65,7 +87,12 @@ Widget modelToHomeDiaryWidget(diary diaryModel){
     ],
   );
 
-  return colHomeDiary;
+  final conHomeDiary = Container(
+    color: Colors.cyan.shade300,
+    child: colHomeDiary,
+  );
+
+  return conHomeDiary;
 }
 
 class homeView extends StatelessWidget {
