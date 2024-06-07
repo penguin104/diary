@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
-
-
+import 'main.dart';
+import 'package:go_router/go_router.dart';
 
 class newDiary extends StatelessWidget {
-  const newDiary({super.key});
+  newDiary({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final titleController = TextEditingController();
     final titleText = TextField(
       controller: titleController,
@@ -24,7 +23,7 @@ class newDiary extends StatelessWidget {
       child: titleText,
     );
 
-    final textMain =TextEditingController();
+    final textMain = TextEditingController();
     final mainDiary = TextField(
       controller: textMain,
       maxLines: null,
@@ -41,12 +40,13 @@ class newDiary extends StatelessWidget {
       alignment: Alignment.center,
     );
 
-    void upLoad(){
-      debugPrint(textMain.text);//本文
+    void upLoad() {
+      debugPrint(textMain.text); //本文
 
-      textMain.text = "";//空白にする
+      textMain.text = ""; //空白にする
       debugPrint("upload");
     }
+
     final newDiaryUp = ElevatedButton(
         onPressed: upLoad,
         style: ElevatedButton.styleFrom(
@@ -57,8 +57,7 @@ class newDiary extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
           ),
-        )
-    );
+        ));
 
     final conButtonNew = Container(
       width: 500,
@@ -66,16 +65,12 @@ class newDiary extends StatelessWidget {
     );
 
     final col = Column(
-      children: [
-        conTitle,
-        conMain,
-        conButtonNew
-      ],
+      children: [conTitle, conMain, conButtonNew],
       mainAxisAlignment: MainAxisAlignment.center,
     );
     final conNewDiaryView = Container(
       width: 500,
-      child:col,
+      child: col,
     );
 
     final newDiaryScafold = Scaffold(
@@ -89,7 +84,7 @@ class newDiary extends StatelessWidget {
         ),
       ),
       body: Center(
-        child:conNewDiaryView,
+        child: conNewDiaryView,
       ),
     );
 
@@ -97,5 +92,3 @@ class newDiary extends StatelessWidget {
   }
 }
 // 本文のところの大きさなんとか白
-
-

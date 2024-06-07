@@ -1,4 +1,8 @@
+import 'package:diary/main.dart';
+import 'package:diary/more.dart';
+import 'package:diary/newDiary.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class diary {
   final String date;
@@ -38,6 +42,34 @@ final List diaryModel = [
   diary("2024/6/5", "penguin", "penguin"),
 ]; //日記ウィジットをaddしていく
 
+// class App extends StatelessWidget {
+//   App({super.key});
+//
+//   final router = GoRouter(routes: [
+//     GoRoute(
+//       path: "/home",
+//       builder: (context, state) => homeView(),
+//     ),
+//     GoRoute(
+//       path: "/new",
+//       builder: (context, state) => newDiary(),
+//     ),
+//     GoRoute(
+//       path: "/more",
+//       builder: (context, state) => moreView(),
+//     ),
+//   ]);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp.router(
+//       routeInformationProvider: router.routeInformationProvider,
+//       routeInformationParser: router.routeInformationParser,
+//       routerDelegate: router.routerDelegate,
+//     );
+//   }
+// }
+
 Widget modelToHomeDiaryWidget(diary diaryModel) {
   //日記リストウィジェット
   final conDate = Container(
@@ -68,7 +100,7 @@ Widget modelToHomeDiaryWidget(diary diaryModel) {
   }
 
   final moreButton = ElevatedButton(
-    onPressed: moreDiary,
+    onPressed: moreDiary, //() => {moreDiary(context)},//context問題
     child: Text("さらに見る"),
     style: ElevatedButton.styleFrom(
         backgroundColor: Colors.cyan, foregroundColor: Colors.white),
@@ -103,7 +135,11 @@ Widget modelToHomeDiaryWidget(diary diaryModel) {
 }
 
 class homeView extends StatelessWidget {
-  const homeView({super.key});
+  homeView({super.key});
+
+  moreDiary(BuildContext context) {
+    context.push("/more");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +155,8 @@ class homeView extends StatelessWidget {
       child: listViewDiary, //diaryList
     );
 
-    void addDiary() {
+    void addDiary(BuildContext context) {
+      context.push("/new");
       debugPrint("addDiary");
     }
 
@@ -128,7 +165,7 @@ class homeView extends StatelessWidget {
         height: 80,
         child: FloatingActionButton(
           onPressed: () {
-            addDiary();
+            addDiary(context);
           },
           foregroundColor: Colors.white,
           backgroundColor: Colors.teal,

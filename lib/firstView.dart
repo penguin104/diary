@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class firstViewWidget extends StatelessWidget {
   const firstViewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final conName = Container(
       width: 300,
       child: TextField(
@@ -15,42 +15,32 @@ class firstViewWidget extends StatelessWidget {
           labelText: "ユーザ名を入力",
         ),
       ),
-
     );
 
-    void onpressed(){
+    void onpressed() {
       debugPrint("start diary");
     }
 
     final conButton = Container(
-      alignment: Alignment(0.7,0),
+      alignment: Alignment(0.7, 0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.teal, // background
-          foregroundColor: Colors.white //forgraund
-        ),
+            backgroundColor: Colors.teal, // background
+            foregroundColor: Colors.white //forgraund
+            ),
         onPressed: onpressed,
         child: Text("さぁ、始めよう!!"),
-        ),
+      ),
     );
-
-
 
     final col = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          "Welcome Diary!",
-          style:TextStyle(
-            fontSize: 40
-          )
-        ),
+        Text("Welcome Diary!", style: TextStyle(fontSize: 40)),
         conName,
         conButton,
       ],
     );
-
-
 
     final v = Scaffold(
       appBar: AppBar(
@@ -60,7 +50,7 @@ class firstViewWidget extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
           ),
-        ),//タイトル
+        ), //タイトル
       ),
       body: Center(
         child: col,
