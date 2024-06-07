@@ -40,15 +40,17 @@ class newDiary extends StatelessWidget {
       alignment: Alignment.center,
     );
 
-    void upLoad() {
+    void upLoad(BuildContext context) {
       debugPrint(textMain.text); //本文
-
       textMain.text = ""; //空白にする
       debugPrint("upload");
+      context.pop(); //go_route to /home
     }
 
     final newDiaryUp = ElevatedButton(
-        onPressed: upLoad,
+        onPressed: () {
+          upLoad(context);
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.teal,
         ),
