@@ -10,13 +10,16 @@ class moreView extends StatelessWidget {
   Widget build(BuildContext context) {
     final sca = Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.teal,
         title: Text("title"),
       ),
     );
 
-    final conSca = Container();
+    final conSca = Container(
+      child: sca,
+    );
 
-    return const Placeholder();
+    return conSca;
   }
 }

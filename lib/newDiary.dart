@@ -77,6 +77,7 @@ class newDiary extends StatelessWidget {
 
     final newDiaryScafold = Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.teal,
         title: Text(
           "New Diary",

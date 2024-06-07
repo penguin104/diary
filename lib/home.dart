@@ -9,6 +9,7 @@ class diary {
   final String title;
   final String diaryText;
 
+  // final BuildContext context;
   diary(this.date, this.title, this.diaryText);
 }
 
@@ -27,19 +28,6 @@ final List diaryModel = [
   diary("2024/6/2", "test", "ttttest"),
   diary("2024/6/5", "penguin", "penguin"),
   diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
 ]; //日記ウィジットをaddしていく
 
 // class App extends StatelessWidget {
@@ -70,8 +58,9 @@ final List diaryModel = [
 //   }
 // }
 
-Widget modelToHomeDiaryWidget(diary diaryModel) {
+Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   //日記リストウィジェット
+
   final conDate = Container(
     child: Text("${diaryModel.date}"),
   );
@@ -94,13 +83,16 @@ Widget modelToHomeDiaryWidget(diary diaryModel) {
     ],
   );
 
-  void moreDiary() {
+  void moreDiary(BuildContext context) {
+    context.push("/more");
     debugPrint(diaryModel.title); //diaryModelを次のページに渡す
     debugPrint("more");
   }
 
   final moreButton = ElevatedButton(
-    onPressed: moreDiary, //() => {moreDiary(context)},//context問題
+    onPressed: () {
+      moreDiary(context);
+    }, //() => {moreDiary(context)},//context問題
     child: Text("さらに見る"),
     style: ElevatedButton.styleFrom(
         backgroundColor: Colors.cyan, foregroundColor: Colors.white),
@@ -145,7 +137,7 @@ class homeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final listViewDiary = ListView.builder(
       itemCount: diaryModel.length,
-      itemBuilder: (c, i) => modelToHomeDiaryWidget(diaryModel[i]),
+      itemBuilder: (c, i) => modelToHomeDiaryWidget(diaryModel[i], context),
     );
 
     final conDiary = Container(
