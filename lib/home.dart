@@ -13,6 +13,8 @@ class diary {
   diary(this.date, this.title, this.diaryText);
 }
 
+diary diaryMoreList = diary("", "", "");
+
 final List diaryModel = [
   // //test model
   // diary("2024/6/2", "test", "ttttest"),
@@ -56,6 +58,8 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   );
 
   void moreDiary(BuildContext context) {
+    diaryMoreList =
+        diary(diaryModel.date, diaryModel.title, diaryModel.diaryText);
     context.push("/more");
     debugPrint(diaryModel.title); //diaryModelを次のページに渡す
     debugPrint("more");

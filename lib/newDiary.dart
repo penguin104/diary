@@ -39,10 +39,15 @@ class newDiary extends StatelessWidget {
       child: mainDiary,
       alignment: Alignment.center,
     );
+    final now = DateTime.now();
+    final date =
+        DateTime(now.year, now.month, now.day, now.hour, now.minute).toString();
+    final dateStringLen = date.length;
+    final dateDel = date.substring(16, dateStringLen);
+    final dateNow = date.replaceAll(dateDel, "");
 
     void upLoad(BuildContext context) {
-      diaryModel.add(diary(
-          DateTime.now().toString(), titleController.text, textMain.text));
+      diaryModel.add(diary(dateNow, titleController.text, textMain.text));
       debugPrint(textMain.text); //本文
       textMain.text = ""; //空白にする
       debugPrint("upload");
