@@ -36,7 +36,12 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   //日記リストウィジェット
 
   final conDate = Container(
-    child: Text("${diaryModel.date}"),
+    child: Text(
+      "${diaryModel.date}",
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
   );
 
   final conDiaryTitle = Container(
@@ -94,9 +99,23 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
     ],
   );
 
+  final border = BoxDecoration(
+    border: Border.all(width: 5, color: Color(0xD3FEE37D)),
+    borderRadius: BorderRadius.circular(30),
+    color: Colors.teal,
+  );
+
   final conHomeDiary = Container(
-    color: Colors.cyan.shade300,
-    child: colHomeDiary,
+    // color: Colors.teal,
+    padding: const EdgeInsets.all(5.0),
+    width: double.infinity,
+    decoration: border,
+
+    // decoration: BoxDecoration(
+    //   border: Border.all(color: Colors.teal),
+    //   borderRadius: BorderRadius.circular(10),
+    // ),
+    child: Center(child: colHomeDiary),
   );
 
   return conHomeDiary;
