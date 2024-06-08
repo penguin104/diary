@@ -41,6 +41,8 @@ class newDiary extends StatelessWidget {
     );
 
     void upLoad(BuildContext context) {
+      diaryModel.add(diary(
+          DateTime.now().toString(), titleController.text, textMain.text));
       debugPrint(textMain.text); //本文
       textMain.text = ""; //空白にする
       debugPrint("upload");

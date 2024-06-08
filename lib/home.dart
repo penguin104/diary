@@ -14,49 +14,21 @@ class diary {
 }
 
 final List diaryModel = [
-  //test model
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
-  diary("2024/6/5", "penguin", "penguin"),
-  diary("2024/6/2", "test", "ttttest"),
+  // //test model
+  // diary("2024/6/2", "test", "ttttest"),
+  // diary("2024/6/5", "penguin", "penguin"),
+  // diary("2024/6/2", "test", "ttttest"),
+  // diary("2024/6/5", "penguin", "penguin"),
+  // diary("2024/6/2", "test", "ttttest"),
+  // diary("2024/6/5", "penguin", "penguin"),
+  // diary("2024/6/2", "test", "ttttest"),
+  // diary("2024/6/5", "penguin", "penguin"),
+  // diary("2024/6/2", "test", "ttttest"),
+  // diary("2024/6/5", "penguin", "penguin"),
+  // diary("2024/6/2", "test", "ttttest"),
+  // diary("2024/6/5", "penguin", "penguin"),
+  // diary("2024/6/2", "test", "ttttest"),
 ]; //日記ウィジットをaddしていく
-
-// class App extends StatelessWidget {
-//   App({super.key});
-//
-//   final router = GoRouter(routes: [
-//     GoRoute(
-//       path: "/home",
-//       builder: (context, state) => homeView(),
-//     ),
-//     GoRoute(
-//       path: "/new",
-//       builder: (context, state) => newDiary(),
-//     ),
-//     GoRoute(
-//       path: "/more",
-//       builder: (context, state) => moreView(),
-//     ),
-//   ]);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp.router(
-//       routeInformationProvider: router.routeInformationProvider,
-//       routeInformationParser: router.routeInformationParser,
-//       routerDelegate: router.routerDelegate,
-//     );
-//   }
-// }
 
 Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   //日記リストウィジェット
@@ -143,7 +115,7 @@ class homeView extends StatelessWidget {
     final conDiary = Container(
       height: 700,
       width: double.infinity,
-      color: Colors.black12,
+      // color: Colors.black12,
       child: listViewDiary, //diaryList
     );
 
