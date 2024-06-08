@@ -100,9 +100,9 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   );
 
   final border = BoxDecoration(
-    border: Border.all(width: 5, color: Color(0xD3FEE37D)),
+    border: Border.all(width: 5, color: Color(0xffc2ecff)),
     borderRadius: BorderRadius.circular(30),
-    color: Colors.teal,
+    color: Color(0xff00c7ac),
   );
 
   final conHomeDiary = Container(
