@@ -47,10 +47,13 @@ class newDiary extends StatelessWidget {
     final dateNow = date.replaceAll(dateDel, "");
 
     void upLoad(BuildContext context) {
-      diaryModel.add(diary(dateNow, titleController.text, textMain.text));
+      diaryModel.add(diary(
+          dateNow, titleController.text, textMain.text, diaryModel.length));
       debugPrint(textMain.text); //本文
       textMain.text = ""; //空白にする
+      debugPrint(diaryModel.length.toString());
       debugPrint("upload");
+      debugPrint(diaryMoreList.toString());
       context.pop(); //go_route to /home
     }
 

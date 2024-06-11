@@ -8,12 +8,13 @@ class diary {
   final String date;
   final String title;
   final String diaryText;
+  final int cnt;
 
   // final BuildContext context;
-  diary(this.date, this.title, this.diaryText);
+  diary(this.date, this.title, this.diaryText, this.cnt);
 }
 
-diary diaryMoreList = diary("", "", "");
+diary diaryMoreList = diary("", "", "", 0);
 
 final List diaryModel = [
   // //test model
@@ -39,7 +40,7 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
     child: Text(
       "${diaryModel.date}",
       style: TextStyle(
-        color: Colors.white,
+        color: Color(0xff4087a6),
       ),
     ),
   );
@@ -51,7 +52,7 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
       "${diaryModel.title}",
       style: TextStyle(
         fontSize: 25,
-        color: Colors.white,
+        color: Color(0xff87A6FF),
       ),
     ),
   );
@@ -63,8 +64,8 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   );
 
   void moreDiary(BuildContext context) {
-    diaryMoreList =
-        diary(diaryModel.date, diaryModel.title, diaryModel.diaryText);
+    diaryMoreList = diary(diaryModel.date, diaryModel.title,
+        diaryModel.diaryText, diaryModel.cnt);
     context.push("/more");
     debugPrint(diaryModel.title); //diaryModelを次のページに渡す
     debugPrint("more");
@@ -100,9 +101,9 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   );
 
   final border = BoxDecoration(
-    border: Border.all(width: 5, color: Color(0xffc2ecff)),
+    border: Border.all(width: 5, color: Color(0xff68cbc1)),
     borderRadius: BorderRadius.circular(30),
-    color: Color(0xff00c7ac),
+    color: Color(0xfffffff8),
   );
 
   final conHomeDiary = Container(

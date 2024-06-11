@@ -51,12 +51,29 @@ class moreView extends StatelessWidget {
         child: colMore,
       ),
     );
+//todo ダイアログを出して削除
+    void delDiary() {
+      diaryModel.removeAt(diaryMoreList.cnt);
+      debugPrint(diaryMoreList.cnt.toString());
+      debugPrint("del");
+      context.pop();
+    }
+
+    final delButton = IconButton(onPressed: delDiary, icon: Icon(Icons.delete));
+
+    final rowHead = Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [Text(diaryMoreList.title), delButton],
+    );
+    final conHead = Container(
+      child: rowHead,
+    );
 
     final sca = Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: Colors.teal,
-        title: Text(diaryMoreList.title),
+        title: conHead,
       ),
       body: Center(
         child: conMainText,
