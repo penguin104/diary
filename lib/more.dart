@@ -3,6 +3,48 @@ import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
 
+class delDialog extends StatelessWidget {
+  const delDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final dialog = AlertDialog(
+      title: Text(
+        "日記を消してしまいますか?",
+      ),
+      actions: [
+        GestureDetector(
+          child: Text("いいえ"),
+          onTap: () {
+            context.pop();
+          },
+        ),
+        GestureDetector(
+          child: Text("はい"),
+          onTap: () {
+            // for (int i = 0; i < diaryModel.length; i++) {
+            //   diaryModel[i].cnt = i;
+            //   debugPrint("cnt start");
+            //   debugPrint(diaryModel[i].cnt.toString());
+            // }
+
+            // debugPrint(diaryMoreList.cnt.toString());
+            diaryModel.removeAt(diaryMoreList.cnt);
+            // debugPrint(diaryMoreList.cnt.toString());
+            for (int i = 0; i < diaryModel.length; i++) {
+              diaryModel[i].cnt = i;
+              debugPrint("cnt start");
+              debugPrint(diaryModel[i].cnt.toString());
+            }
+            context.go("/home");
+          },
+        )
+      ],
+    );
+    return dialog;
+  }
+}
+
 class moreView extends StatelessWidget {
   moreView({super.key});
 
@@ -51,15 +93,16 @@ class moreView extends StatelessWidget {
         child: colMore,
       ),
     );
-//todo ダイアログを出して削除
-    void delDiary() {
-      diaryModel.removeAt(diaryMoreList.cnt);
-      debugPrint(diaryMoreList.cnt.toString());
-      debugPrint("del");
-      context.pop();
-    }
 
-    final delButton = IconButton(onPressed: delDiary, icon: Icon(Icons.delete));
+    final delButton = IconButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return delDialog();
+              });
+        },
+        icon: Icon(Icons.delete));
 
     final rowHead = Row(
       mainAxisAlignment: MainAxisAlignment.start,

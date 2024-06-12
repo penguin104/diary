@@ -8,7 +8,7 @@ class diary {
   final String date;
   final String title;
   final String diaryText;
-  final int cnt;
+  int cnt;
 
   // final BuildContext context;
   diary(this.date, this.title, this.diaryText, this.cnt);
@@ -33,12 +33,12 @@ final List diaryModel = [
   // diary("2024/6/2", "test", "ttttest"),
 ]; //日記ウィジットをaddしていく
 
-Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
+Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   //日記リストウィジェット
 
   final conDate = Container(
     child: Text(
-      "${diaryModel.date}",
+      "${diaryModelWidget.date}",
       style: TextStyle(
         color: Color(0xff4087a6),
       ),
@@ -49,7 +49,7 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
     width: 250,
     alignment: Alignment.centerLeft,
     child: Text(
-      "${diaryModel.title}",
+      "${diaryModelWidget.title}",
       style: TextStyle(
         fontSize: 25,
         color: Color(0xff87A6FF),
@@ -64,10 +64,10 @@ Widget modelToHomeDiaryWidget(diary diaryModel, BuildContext context) {
   );
 
   void moreDiary(BuildContext context) {
-    diaryMoreList = diary(diaryModel.date, diaryModel.title,
-        diaryModel.diaryText, diaryModel.cnt);
+    diaryMoreList = diary(diaryModelWidget.date, diaryModelWidget.title,
+        diaryModelWidget.diaryText, diaryModelWidget.cnt);
     context.push("/more");
-    debugPrint(diaryModel.title); //diaryModelを次のページに渡す
+    debugPrint(diaryModelWidget.title); //diaryModelを次のページに渡す
     debugPrint("more");
   }
 
@@ -132,9 +132,8 @@ class homeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listViewDiary = ListView.builder(
-      itemCount: diaryModel.length,
-      itemBuilder: (c, i) => modelToHomeDiaryWidget(diaryModel[i], context),
-    );
+        itemCount: diaryModel.length,
+        itemBuilder: (c, i) => modelToHomeDiaryWidget(diaryModel[i], context));
 
     final conDiary = Container(
       height: 700,

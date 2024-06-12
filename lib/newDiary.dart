@@ -54,6 +54,13 @@ class newDiary extends StatelessWidget {
       debugPrint(diaryModel.length.toString());
       debugPrint("upload");
       debugPrint(diaryMoreList.toString());
+
+      for (var i = 0; i < diaryModel.length; i++) {
+        debugPrint("cnt add");
+        debugPrint(diaryModel[i].cnt.toString());
+      }
+      print(diaryModel);
+
       context.pop(); //go_route to /home
     }
 
