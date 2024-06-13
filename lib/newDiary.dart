@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
+import 'saveFunction.dart';
 
 class newDiary extends StatelessWidget {
   newDiary({super.key});
@@ -56,9 +57,9 @@ class newDiary extends StatelessWidget {
       debugPrint(diaryMoreList.toString());
 
       for (var i = 0; i < diaryModel.length; i++) {
-        debugPrint("cnt add");
-        debugPrint(diaryModel[i].cnt.toString());
+        saveData(diaryModel[i]);
       }
+      innerDiary();
       print(diaryModel);
 
       context.pop(); //go_route to /home

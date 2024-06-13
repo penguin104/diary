@@ -3,6 +3,7 @@ import 'package:diary/more.dart';
 import 'package:diary/newDiary.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'saveFunction.dart';
 
 class diary {
   final String date;

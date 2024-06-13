@@ -4,6 +4,7 @@ import 'home.dart';
 import 'newDiary.dart';
 import 'more.dart';
 import 'package:go_router/go_router.dart';
+import 'saveFunction.dart';
 
 class App extends StatelessWidget {
   App({super.key});
@@ -41,8 +42,19 @@ void main() {
   //   home: Scaffold(
   //     body: homeViewWidget,
   //   ),
-  // );
+// );
+  innerDiary();
   final a = App();
   runApp(a);
   //hello
+}
+
+Future<void> innerDiary() async {
+  dynamic diaryModels;
+
+  for (int i = 0; i < int.parse(loadLen("len").toString()); i++) {
+    diaryModels = await loadData(i);
+    diaryModel[i] = diary(diaryModels[0].toString(), diaryModels[1].toString(),
+        diaryModels[2].toString(), i);
+  }
 }

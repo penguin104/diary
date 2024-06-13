@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
+import 'saveFunction.dart';
 
 class delDialog extends StatelessWidget {
   const delDialog({super.key});
@@ -36,6 +37,10 @@ class delDialog extends StatelessWidget {
               debugPrint("cnt start");
               debugPrint(diaryModel[i].cnt.toString());
             }
+            for (var i = 0; i < diaryModel.length; i++) {
+              saveData(diaryModel[i]);
+            }
+            innerDiary();
             context.go("/home");
           },
         )
