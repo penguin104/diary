@@ -4,6 +4,7 @@ import 'package:diary/newDiary.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class diary {
   final String date;
@@ -47,12 +48,12 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   );
 
   final conDiaryTitle = Container(
-    width: 250,
+    width: 250.sp,
     alignment: Alignment.centerLeft,
     child: Text(
       "${diaryModelWidget.title}",
       style: TextStyle(
-        fontSize: 25,
+        fontSize: 25.sp,
         color: Color(0xff87A6FF),
       ),
     ),
@@ -76,7 +77,7 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
     onPressed: () {
       moreDiary(context);
     }, //() => {moreDiary(context)},//context問題
-    child: Text("さらに見る"),
+    child: Text("more"),
     style: ElevatedButton.styleFrom(
         backgroundColor: Colors.cyan, foregroundColor: Colors.white),
   );
@@ -90,7 +91,7 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   );
 
   final conRow = Container(
-    padding: EdgeInsets.all(10),
+    padding: EdgeInsets.all(10.sp),
     child: rowHomeDiaryButtom,
   );
 
@@ -102,15 +103,15 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   );
 
   final border = BoxDecoration(
-    border: Border.all(width: 5, color: Color(0xff68cbc1)),
-    borderRadius: BorderRadius.circular(30),
+    border: Border.all(width: 5.sp, color: Color(0xff68cbc1)),
+    borderRadius: BorderRadius.circular(30.sp),
     color: Color(0xfffffff8),
   );
 
   final conHomeDiary = Container(
     // color: Colors.teal,
     padding: const EdgeInsets.all(5.0),
-    width: double.infinity,
+    width: double.infinity.sp,
     decoration: border,
 
     // decoration: BoxDecoration(
@@ -137,7 +138,7 @@ class homeView extends StatelessWidget {
         itemBuilder: (c, i) => modelToHomeDiaryWidget(diaryModel[i], context));
 
     final conDiary = Container(
-      height: 700,
+      height: 700.sp,
       width: double.infinity,
       // color: Colors.black12,
       child: listViewDiary, //diaryList
@@ -149,8 +150,8 @@ class homeView extends StatelessWidget {
     }
 
     final conAddButton = Container(
-        width: 80,
-        height: 80,
+        width: 80.sp,
+        height: 80.sp,
         child: FloatingActionButton(
           onPressed: () {
             addDiary(context);

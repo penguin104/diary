@@ -3,6 +3,7 @@ import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class delDialog extends StatelessWidget {
   const delDialog({super.key});
@@ -23,13 +24,6 @@ class delDialog extends StatelessWidget {
         GestureDetector(
           child: Text("はい"),
           onTap: () {
-            // for (int i = 0; i < diaryModel.length; i++) {
-            //   diaryModel[i].cnt = i;
-            //   debugPrint("cnt start");
-            //   debugPrint(diaryModel[i].cnt.toString());
-            // }
-
-            // debugPrint(diaryMoreList.cnt.toString());
             diaryModel.removeAt(diaryMoreList.cnt);
             // debugPrint(diaryMoreList.cnt.toString());
             for (int i = 0; i < diaryModel.length; i++) {
@@ -38,8 +32,10 @@ class delDialog extends StatelessWidget {
               debugPrint(diaryModel[i].cnt.toString());
             }
             for (var i = 0; i < diaryModel.length; i++) {
-              saveData(diaryModel[i]);
+              saveData(diaryModel[i].date, diaryModel[i].title,
+                  diaryModel[i].diaryText, diaryModel[i].cnt);
             }
+            saveLen(diaryModel.length + 1);
             innerDiary();
             context.go("/home");
           },
@@ -60,7 +56,7 @@ class moreView extends StatelessWidget {
       textAlign: TextAlign.left,
       style: TextStyle(
         color: Colors.teal,
-        fontSize: 30,
+        fontSize: 30.sp,
       ),
     );
 
@@ -69,7 +65,7 @@ class moreView extends StatelessWidget {
       textAlign: TextAlign.left,
       style: TextStyle(
         color: Colors.teal,
-        fontSize: 40,
+        fontSize: 40.sp,
       ),
     );
 
@@ -78,7 +74,7 @@ class moreView extends StatelessWidget {
       textAlign: TextAlign.left,
       style: TextStyle(
         color: Colors.teal,
-        fontSize: 30,
+        fontSize: 30.sp,
       ),
     );
 
@@ -92,7 +88,7 @@ class moreView extends StatelessWidget {
     );
 
     final conMainText = Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.sp),
       alignment: Alignment.topLeft,
       child: SingleChildScrollView(
         child: colMore,

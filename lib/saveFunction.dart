@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firstView.dart';
 import 'home.dart';
@@ -6,33 +7,34 @@ import 'newDiary.dart';
 import 'more.dart';
 import 'package:go_router/go_router.dart';
 
-Future<void> saveData(diary value) async {
-  final prefs = await SharedPreferences.getInstance();
-
-  await prefs.setString('diaryModelDate${value.cnt}', value.date);
-  await prefs.setString("diaryModelTitle${value.cnt}", value.title);
-  await prefs.setString("diaryModelMain${value.cnt}", value.diaryText);
+Future<void> saveData(
+    String valueDate, String valueTitle, String valueText, int cnt) async {
+  final prefs = await FlutterSecureStorage();
+  debugPrint(valueTitle);
+  await prefs.write(key: 'diaryModelDate$cnt', value: valueDate.toString());
+  await prefs.write(key: "diaryModelTitle$cnt", value: valueTitle.toString());
+  await prefs.write(key: "diaryModelMain$cnt", value: valueText.toString());
 }
 
-Future<List> loadData(int key) async {
-  final prefs = await SharedPreferences.getInstance();
+Future<List> loadData(String key) async {
+  final prefs = await FlutterSecureStorage();
   List<String> value;
-  final valueDate = prefs.getString("diaryModelDate$key").toString();
-  final valueTitle = prefs.getString("diaryModelDate$key").toString();
-  final valueMain = prefs.getString("diaryModelDate$key").toString();
+  final valueDate = prefs.read(key: "diaryModelDate$key").toString();
+  final valueTitle = prefs.read(key: "diaryModelDate$key").toString();
+  final valueMain = prefs.read(key: "diaryModelDate$key").toString();
   value = [valueDate, valueTitle, valueMain];
   return value;
 }
 
 Future<void> saveLen(int value) async {
-  final prefs = await SharedPreferences.getInstance();
+  final prefs = await FlutterSecureStorage();
 
-  await prefs.setString('len', value.toString());
+  await prefs.write(key: 'len', value: value.toString());
 }
 
 Future<String> loadLen(String key) async {
-  final prefs = await SharedPreferences.getInstance();
+  final prefs = await FlutterSecureStorage();
 
-  final value = prefs.getString("len");
+  final value = prefs.read(key: "len");
   return value.toString();
 }

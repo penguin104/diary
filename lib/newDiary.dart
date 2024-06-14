@@ -3,6 +3,7 @@ import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class newDiary extends StatelessWidget {
   newDiary({super.key});
@@ -20,7 +21,7 @@ class newDiary extends StatelessWidget {
 
     final conTitle = Container(
       alignment: Alignment.center,
-      width: 300,
+      width: 300.sp,
       child: titleText,
     );
 
@@ -29,14 +30,14 @@ class newDiary extends StatelessWidget {
       controller: textMain,
       maxLines: null,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(vertical: 1),
+        contentPadding: EdgeInsets.symmetric(vertical: 1.sp),
         border: OutlineInputBorder(),
         labelText: "本文を入力",
       ),
     );
     final conMain = Container(
-      width: 400,
-      height: 200,
+      width: 400.sp,
+      height: 200.sp,
       child: mainDiary,
       alignment: Alignment.center,
     );
@@ -57,10 +58,12 @@ class newDiary extends StatelessWidget {
       debugPrint(diaryMoreList.toString());
 
       for (var i = 0; i < diaryModel.length; i++) {
-        saveData(diaryModel[i]);
+        saveData(diaryModel[i].date, diaryModel[i].title,
+            diaryModel[i].diaryText, diaryModel[i].cnt);
       }
+      saveLen(diaryModel.length + 1);
       innerDiary();
-      print(diaryModel);
+      // print(diaryModel);
 
       context.pop(); //go_route to /home
     }
@@ -80,7 +83,7 @@ class newDiary extends StatelessWidget {
         ));
 
     final conButtonNew = Container(
-      width: 500,
+      width: 500.sp,
       child: newDiaryUp,
     );
 
@@ -89,7 +92,7 @@ class newDiary extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
     );
     final conNewDiaryView = Container(
-      width: 500,
+      width: 500.sp,
       child: col,
     );
 
