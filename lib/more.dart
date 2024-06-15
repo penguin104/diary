@@ -27,16 +27,16 @@ class delDialog extends StatelessWidget {
             diaryModel.removeAt(diaryMoreList.cnt);
             // debugPrint(diaryMoreList.cnt.toString());
             for (int i = 0; i < diaryModel.length; i++) {
-              diaryModel[i].cnt = i;
+              diaryModel[i]["cnt"] = i;
               debugPrint("cnt start");
-              debugPrint(diaryModel[i].cnt.toString());
+              debugPrint(diaryModel[i]["cnt"].toString());
             }
             for (var i = 0; i < diaryModel.length; i++) {
-              saveData(diaryModel[i].date, diaryModel[i].title,
-                  diaryModel[i].diaryText, diaryModel[i].cnt);
+              saveData(diaryModel[i]["date"], diaryModel[i]["title"],
+                  diaryModel[i]["diaryText"], diaryModel[i]["cnt"]);
             }
             saveLen(diaryModel.length + 1);
-            innerDiary();
+
             context.go("/home");
           },
         )

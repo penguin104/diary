@@ -18,29 +18,14 @@ class diary {
 
 diary diaryMoreList = diary("", "", "", 0);
 
-final List diaryModel = [
-  // //test model
-  // diary("2024/6/2", "test", "ttttest"),
-  // diary("2024/6/5", "penguin", "penguin"),
-  // diary("2024/6/2", "test", "ttttest"),
-  // diary("2024/6/5", "penguin", "penguin"),
-  // diary("2024/6/2", "test", "ttttest"),
-  // diary("2024/6/5", "penguin", "penguin"),
-  // diary("2024/6/2", "test", "ttttest"),
-  // diary("2024/6/5", "penguin", "penguin"),
-  // diary("2024/6/2", "test", "ttttest"),
-  // diary("2024/6/5", "penguin", "penguin"),
-  // diary("2024/6/2", "test", "ttttest"),
-  // diary("2024/6/5", "penguin", "penguin"),
-  // diary("2024/6/2", "test", "ttttest"),
-]; //日記ウィジットをaddしていく
+final List<Map> diaryModel = [];
 
-Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
+Widget modelToHomeDiaryWidget(Map diaryModelWidget, BuildContext context) {
   //日記リストウィジェット
 
   final conDate = Container(
     child: Text(
-      "${diaryModelWidget.date}",
+      "${diaryModelWidget["date"]}",
       style: TextStyle(
         color: Color(0xff4087a6),
       ),
@@ -51,7 +36,7 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
     width: 250.sp,
     alignment: Alignment.centerLeft,
     child: Text(
-      "${diaryModelWidget.title}",
+      "${diaryModelWidget["title"]}",
       style: TextStyle(
         fontSize: 25.sp,
         color: Color(0xff87A6FF),
@@ -66,10 +51,10 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   );
 
   void moreDiary(BuildContext context) {
-    diaryMoreList = diary(diaryModelWidget.date, diaryModelWidget.title,
-        diaryModelWidget.diaryText, diaryModelWidget.cnt);
+    diaryMoreList = diary(diaryModelWidget["date"], diaryModelWidget["title"],
+        diaryModelWidget["diaryText"], diaryModelWidget["cnt"]);
     context.push("/more");
-    debugPrint(diaryModelWidget.title); //diaryModelを次のページに渡す
+    debugPrint(diaryModelWidget["title"]); //diaryModelを次のページに渡す
     debugPrint("more");
   }
 

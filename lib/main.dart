@@ -7,17 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart'; //画面固定
-
-Future<void> innerDiary() async {
-  dynamic diaryModels;
-
-  for (int i = 0; i < int.parse(loadLen("len").toString()); i++) {
-    diaryModels = await loadData(i.toString());
-    debugPrint("inner done");
-    diaryModel[i] = diary(diaryModels[0].toString(), diaryModels[1].toString(),
-        diaryModels[2].toString(), i);
-  }
-}
+import 'package:sqflite/sqflite.dart';
 
 class routeApp extends StatelessWidget {
   routeApp({super.key});
@@ -48,7 +38,30 @@ class routeApp extends StatelessWidget {
   }
 }
 
-void main() {
+// getDatabasesPathを取得
+// var databasesPath = await getDatabasesPath();
+// String path = '$databasesPath/demo.db';
+//
+// // データベースを開く(pathに存在しなければ新規作成)
+// Database database = await openDatabase(
+// path,
+// version: 1,
+// onCreate: (Database db, int version) async {
+// await db.execute(
+// 'CREATE TABLE Test (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)'
+// );
+// });
+
+void main() async {
+  // var dbPath = await getDatabasesPath();
+  // String path = "$dbPath/diary.db"; //DBパス
+  //
+  // Database databese = await openDatabase(path, version: 1,
+  //     onCreate: (Database db, int version) async {
+  //   await db.execute(
+  //       'CREATE TABLE diaryDb (id INTEGER PRIMARY KEY, date TEXT, title TEXT,mainText TEXT,cnt INTEGER)');
+  // });
+
   // final a = MaterialApp(
   //   home: Scaffold(
   //     body: homeViewWidget,
@@ -57,7 +70,6 @@ void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
-  innerDiary();
   final a = routeApp();
 
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定

@@ -49,20 +49,28 @@ class newDiary extends StatelessWidget {
     final dateNow = date.replaceAll(dateDel, "");
 
     void upLoad(BuildContext context) {
-      diaryModel.add(diary(
-          dateNow, titleController.text, textMain.text, diaryModel.length));
-      debugPrint(textMain.text); //本文
+      // diary addDiaryM = diary(dateNow.toString(), titleController.text,
+      //     textMain.text, diaryModel.length + 1);
+      //
+      // diaryModel[addDiaryM.cnt]["cnt"] = addDiaryM.cnt;
+      // diaryModel[addDiaryM.cnt]["date"] = addDiaryM.date;
+      // diaryModel[addDiaryM.cnt]["title"] = addDiaryM.title;
+      // diaryModel[addDiaryM.cnt]["diaryText"] = addDiaryM.diaryText;
+      Map add = {
+        "cnt": diaryModel.length,
+        "date": dateNow.toString(),
+        "title": titleController.text,
+        "diaryText": textMain.text
+      };
+      diaryModel.add(add);
+      debugPrint(diaryModel.toString());
       textMain.text = ""; //空白にする
       debugPrint(diaryModel.length.toString());
       debugPrint("upload");
       debugPrint(diaryMoreList.toString());
 
-      for (var i = 0; i < diaryModel.length; i++) {
-        saveData(diaryModel[i].date, diaryModel[i].title,
-            diaryModel[i].diaryText, diaryModel[i].cnt);
-      }
-      saveLen(diaryModel.length + 1);
-      innerDiary();
+      //上書き保存処理を書く
+      // innerDiary();
       // print(diaryModel);
 
       context.pop(); //go_route to /home
