@@ -60,6 +60,8 @@ class diaryViewDB {
       diaryModel.add(diary(maps[i]['date'], maps[i]['title'],
           maps[i]['diaryText'], maps[i]['cnt']));
     }
+    debugPrint("get! database");
+    return;
   }
 
   Future<void> updateDiary(diary diaryUp) async {
@@ -94,10 +96,15 @@ Future<void> saveData(diary saveDiary) async {
   print("a ${await save.getDbPath()}");
 }
 
-Future<dynamic> loadData() async {
+Future<void> loadData() async {
   debugPrint("load!");
   diaryViewDB load = diaryViewDB();
-  return await load.getDiary();
+  for (var i = 0; i < diaryModel.length; i++) {
+    debugPrint("remove Model!");
+    diaryModel.removeAt(i);
+  }
+  await load.getDiary();
+  return;
 }
 
 Future<void> delData(diary delDiary) async {

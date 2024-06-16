@@ -54,6 +54,7 @@ Future<void> main() async {
   //     body: homeViewWidget,
   //   ),
 // );
+  WidgetsFlutterBinding.ensureInitialized();
   loadData();
 
   SystemChrome.setPreferredOrientations(

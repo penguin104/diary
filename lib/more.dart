@@ -24,17 +24,42 @@ class delDialog extends StatelessWidget {
         GestureDetector(
           child: Text("はい"),
           onTap: () {
-            diaryModel.removeAt(diaryMoreList.cnt);
-            delData(diaryMoreList);
             // debugPrint(diaryMoreList.cnt.toString());
+            // for (int i = 0; i < diaryModel.length; i++) {
+            //   if (diaryModel[i].cnt == diaryMoreList.cnt) {
+            //     debugPrint("一致");
+            //     // diaryMoreList.cnt = i;
+            //     diaryModel.removeAt(diaryModel[i].cnt);
+            //     delData(diaryModel[i]);
+            //   } else {
+            //     diaryModel[i].cnt = i;
+            //
+            //     updateData(diaryModel[i]);
+            //   }
+            //   // debugPrint("cnt start");
+            //   // debugPrint(diaryModel[i].toString());
+            // }
+            // int j;
             for (int i = 0; i < diaryModel.length; i++) {
-              diaryModel[i].cnt = i;
-              debugPrint("cnt start");
-              debugPrint(diaryModel[i].toString());
+              if (diaryMoreList.cnt == diaryModel[i].cnt) {
+                delData(diaryMoreList);
+                diaryModel.removeAt(i);
+                debugPrint("del data!");
+                for (int j = i + 1; j < diaryModel.length - 1; j++) {
+                  diaryModel[i] = diaryModel[j]; //詰める
+                }
+              } else {
+                diaryModel[i].cnt = i;
+              }
+              updateData(diaryModel[i]);
+
+              print(diaryModel[i].cnt);
             }
+            loadData();
             for (var i = 0; i < diaryModel.length; i++) {
               updateData(diaryModel[i]);
             }
+
             // saveLen(diaryModel.length + 1);
 
             context.go("/home");
