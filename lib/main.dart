@@ -8,6 +8,7 @@ import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart'; //画面固定
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
 class routeApp extends StatelessWidget {
   routeApp({super.key});
@@ -38,21 +39,7 @@ class routeApp extends StatelessWidget {
   }
 }
 
-// getDatabasesPathを取得
-// var databasesPath = await getDatabasesPath();
-// String path = '$databasesPath/demo.db';
-//
-// // データベースを開く(pathに存在しなければ新規作成)
-// Database database = await openDatabase(
-// path,
-// version: 1,
-// onCreate: (Database db, int version) async {
-// await db.execute(
-// 'CREATE TABLE Test (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)'
-// );
-// });
-
-void main() async {
+Future<void> main() async {
   // var dbPath = await getDatabasesPath();
   // String path = "$dbPath/diary.db"; //DBパス
   //
@@ -67,6 +54,8 @@ void main() async {
   //     body: homeViewWidget,
   //   ),
 // );
+  loadData();
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 

@@ -12,20 +12,30 @@ class diary {
   final String diaryText;
   int cnt;
 
+  Map<String, Object> toMap() {
+    return {
+      "id": cnt,
+      "date": date,
+      "title": title,
+      "diaryText": diaryText,
+      "cnt": cnt,
+    };
+  }
+
   // final BuildContext context;
   diary(this.date, this.title, this.diaryText, this.cnt);
 }
 
 diary diaryMoreList = diary("", "", "", 0);
 
-final List<Map> diaryModel = [];
+final List<diary> diaryModel = [];
 
-Widget modelToHomeDiaryWidget(Map diaryModelWidget, BuildContext context) {
+Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   //日記リストウィジェット
 
   final conDate = Container(
     child: Text(
-      "${diaryModelWidget["date"]}",
+      "${diaryModelWidget.date}",
       style: TextStyle(
         color: Color(0xff4087a6),
       ),
@@ -36,7 +46,7 @@ Widget modelToHomeDiaryWidget(Map diaryModelWidget, BuildContext context) {
     width: 250.sp,
     alignment: Alignment.centerLeft,
     child: Text(
-      "${diaryModelWidget["title"]}",
+      "${diaryModelWidget.title}",
       style: TextStyle(
         fontSize: 25.sp,
         color: Color(0xff87A6FF),
@@ -51,10 +61,10 @@ Widget modelToHomeDiaryWidget(Map diaryModelWidget, BuildContext context) {
   );
 
   void moreDiary(BuildContext context) {
-    diaryMoreList = diary(diaryModelWidget["date"], diaryModelWidget["title"],
-        diaryModelWidget["diaryText"], diaryModelWidget["cnt"]);
+    diaryMoreList = diary(diaryModelWidget.date, diaryModelWidget.title,
+        diaryModelWidget.diaryText, diaryModelWidget.cnt);
     context.push("/more");
-    debugPrint(diaryModelWidget["title"]); //diaryModelを次のページに渡す
+    debugPrint(diaryModelWidget.title); //diaryModelを次のページに渡す
     debugPrint("more");
   }
 

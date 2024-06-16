@@ -25,17 +25,17 @@ class delDialog extends StatelessWidget {
           child: Text("はい"),
           onTap: () {
             diaryModel.removeAt(diaryMoreList.cnt);
+            delData(diaryMoreList);
             // debugPrint(diaryMoreList.cnt.toString());
             for (int i = 0; i < diaryModel.length; i++) {
-              diaryModel[i]["cnt"] = i;
+              diaryModel[i].cnt = i;
               debugPrint("cnt start");
-              debugPrint(diaryModel[i]["cnt"].toString());
+              debugPrint(diaryModel[i].toString());
             }
             for (var i = 0; i < diaryModel.length; i++) {
-              saveData(diaryModel[i]["date"], diaryModel[i]["title"],
-                  diaryModel[i]["diaryText"], diaryModel[i]["cnt"]);
+              updateData(diaryModel[i]);
             }
-            saveLen(diaryModel.length + 1);
+            // saveLen(diaryModel.length + 1);
 
             context.go("/home");
           },
@@ -107,7 +107,7 @@ class moreView extends StatelessWidget {
 
     final rowHead = Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: [Text(diaryMoreList.title), delButton],
+      children: [delButton, Text(diaryMoreList.title)],
     );
     final conHead = Container(
       child: rowHead,
