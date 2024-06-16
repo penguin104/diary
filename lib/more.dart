@@ -40,6 +40,7 @@ class delDialog extends StatelessWidget {
             //   // debugPrint(diaryModel[i].toString());
             // }
             // int j;
+            //todo diaryModelの削除と詰める処理
             for (int i = 0; i < diaryModel.length; i++) {
               if (diaryMoreList.cnt == diaryModel[i].cnt) {
                 delData(diaryMoreList);
