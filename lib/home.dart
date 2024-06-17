@@ -182,6 +182,7 @@ class homeView extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: conAddButton,
     );
+
     return homeViewWidget;
   }
 }

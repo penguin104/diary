@@ -52,11 +52,7 @@ class diaryViewDB {
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
-    // return List.generate(maps.length, (i) {
-    //   return diary(maps[i]['date'], maps[i]['title'], maps[i]['diaryText'],
-    //       maps[i]['cnt']);
-    // });
-    for (var i = 0; i < maps.length; i++) {
+    for (int i = 0; i < maps.length; i++) {
       diaryModel.add(diary(maps[i]['date'], maps[i]['title'],
           maps[i]['diaryText'], maps[i]['cnt']));
     }
@@ -99,8 +95,8 @@ Future<void> saveData(diary saveDiary) async {
 Future<void> loadData() async {
   debugPrint("load!");
   diaryViewDB load = diaryViewDB();
-  for (var i = 0; i < diaryModel.length; i++) {
-    debugPrint("remove Model!");
+  for (int i = 0; i < diaryModel.length; i++) {
+    debugPrint("remove Model!$i");
     diaryModel.removeAt(i);
   }
   await load.getDiary();

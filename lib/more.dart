@@ -40,29 +40,39 @@ class delDialog extends StatelessWidget {
             //   // debugPrint(diaryModel[i].toString());
             // }
             // int j;
-            //todo diaryModelの削除と詰める処理
+            // diaryModelの削除と詰める処理
+
+            var j = 0;
             for (int i = 0; i < diaryModel.length; i++) {
               if (diaryMoreList.cnt == diaryModel[i].cnt) {
-                delData(diaryMoreList);
                 diaryModel.removeAt(i);
+                delData(diaryMoreList);
                 debugPrint("del data!");
-                for (int j = i + 1; j < diaryModel.length - 1; j++) {
-                  diaryModel[i] = diaryModel[j]; //詰める
+                if (diaryModel.length > 1) {
+                  for (j = i; j < diaryModel.length - 1; j++) {
+                    diaryModel[j] = diaryModel[j + 1]; //詰める
+                    print("shift!");
+                  }
                 }
-              } else {
-                diaryModel[i].cnt = i;
               }
-              updateData(diaryModel[i]);
+              // else {
+              //   diaryModel[i].cnt = i;
+              // }
+            }
 
-              print(diaryModel[i].cnt);
+            if (diaryModel.isNotEmpty) {
+              for (int i = 0; i < diaryModel.length; i++) {
+                updateData(diaryModel[i]);
+              }
+            }
+
+            if (diaryModel.length > 1) {
+              //todo 長さで判断したら最後のやつ消したときにエラー出る
+
+              delData(diaryModel[j]);
+              diaryModel.removeAt(j);
             }
             loadData();
-            for (var i = 0; i < diaryModel.length; i++) {
-              updateData(diaryModel[i]);
-            }
-
-            // saveLen(diaryModel.length + 1);
-
             context.go("/home");
           },
         )
