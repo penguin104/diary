@@ -2,9 +2,11 @@ import 'package:diary/main.dart';
 import 'package:diary/more.dart';
 import 'package:diary/newDiary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:riverpod/riverpod.dart';
 
 class diary {
   final String date;
@@ -119,7 +121,11 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   return conHomeDiary;
 }
 
-class homeView extends StatelessWidget {
+final diaryModelState = StateProvider<List<diary>>((ref) {
+  return diaryModel;
+});
+
+class homeView extends ConsumerWidget {
   homeView({super.key});
 
   moreDiary(BuildContext context) {
@@ -127,10 +133,13 @@ class homeView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final diaryModelSt = ref.watch(diaryModelState); //todo riverpod勉強
+
     final listViewDiary = ListView.builder(
         itemCount: diaryModel.length,
-        itemBuilder: (c, i) => modelToHomeDiaryWidget(diaryModel[i], context));
+        itemBuilder: (c, i) =>
+            modelToHomeDiaryWidget(diaryModelSt[i], context));
 
     final conDiary = Container(
       height: 700.sp,

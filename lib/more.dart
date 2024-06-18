@@ -4,6 +4,7 @@ import 'main.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:riverpod/riverpod.dart';
 
 class delDialog extends StatelessWidget {
   const delDialog({super.key});
@@ -11,73 +12,57 @@ class delDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dialog = AlertDialog(
-      title: Text(
-        "日記を消してしまいますか?",
-      ),
-      actions: [
-        GestureDetector(
-          child: Text("いいえ"),
-          onTap: () {
-            context.pop();
-          },
+        title: Text(
+          "日記を消してしまいますか?",
         ),
-        GestureDetector(
-          child: Text("はい"),
-          onTap: () {
-            // debugPrint(diaryMoreList.cnt.toString());
-            // for (int i = 0; i < diaryModel.length; i++) {
-            //   if (diaryModel[i].cnt == diaryMoreList.cnt) {
-            //     debugPrint("一致");
-            //     // diaryMoreList.cnt = i;
-            //     diaryModel.removeAt(diaryModel[i].cnt);
-            //     delData(diaryModel[i]);
-            //   } else {
-            //     diaryModel[i].cnt = i;
-            //
-            //     updateData(diaryModel[i]);
-            //   }
-            //   // debugPrint("cnt start");
-            //   // debugPrint(diaryModel[i].toString());
-            // }
-            // int j;
-            // diaryModelの削除と詰める処理
-
-            var j = 0;
-            for (int i = 0; i < diaryModel.length; i++) {
-              if (diaryMoreList.cnt == diaryModel[i].cnt) {
-                diaryModel.removeAt(i);
-                delData(diaryMoreList);
-                debugPrint("del data!");
-                if (diaryModel.length > 1) {
-                  for (j = i; j < diaryModel.length - 1; j++) {
-                    diaryModel[j] = diaryModel[j + 1]; //詰める
-                    print("shift!");
+        actions: [
+          GestureDetector(
+            child: Text("いいえ"),
+            onTap: () {
+              context.pop();
+            },
+          ),
+          GestureDetector(
+              child: Text("はい"),
+              onTap: () {
+                var j = 0;
+                for (int i = 0; i < diaryModel.length; i++) {
+                  if (diaryMoreList.cnt == diaryModel[i].cnt) {
+                    diaryModel.removeAt(i);
+                    delData(diaryMoreList);
+                    debugPrint("del data!");
+                    if (diaryModel.length > 1) {
+                      for (j = i; j < diaryModel.length - 1; j++) {
+                        diaryModel[j] = diaryModel[j + 1]; //詰める
+                        print("shift!");
+                      }
+                    }
                   }
                 }
-              }
-              // else {
-              //   diaryModel[i].cnt = i;
-              // }
-            }
 
-            if (diaryModel.isNotEmpty) {
-              for (int i = 0; i < diaryModel.length; i++) {
-                updateData(diaryModel[i]);
-              }
-            }
+                if (diaryModel.isNotEmpty) {
+                  for (int i = 0; i < diaryModel.length; i++) {
+                    updateData(diaryModel[i]);
+                  }
+                }
 
-            if (diaryModel.length > 1) {
-              //todo 長さで判断したら最後のやつ消したときにエラー出る
-
-              delData(diaryModel[j]);
-              diaryModel.removeAt(j);
-            }
-            loadData();
-            context.go("/home");
-          },
-        )
-      ],
-    );
+                if (diaryModel.length > 1 &&
+                    diaryMoreList.cnt == diaryModel.length - 1) {
+                  //  長さで判断したら最後のやつ消したときにエラー出る
+                  //
+                  delData(diaryModel[j]);
+                  diaryModel.removeAt(j);
+                }
+                WidgetsFlutterBinding.ensureInitialized();
+                context.go("/home");
+                loadData();
+                // context.go("/home");
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (BuildContext context) => homeView()));
+              }),
+        ]);
     return dialog;
   }
 }

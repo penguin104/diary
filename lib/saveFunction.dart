@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'firstView.dart';
+import 'package:riverpod/riverpod.dart';
 import 'home.dart';
 import 'newDiary.dart';
 import 'more.dart';
@@ -52,10 +48,11 @@ class diaryViewDB {
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
-    for (int i = 0; i < maps.length; i++) {
-      diaryModel.add(diary(maps[i]['date'], maps[i]['title'],
-          maps[i]['diaryText'], maps[i]['cnt']));
-    }
+
+    maps.forEach((d) {
+      print(d);
+      diaryModel.add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
+    });
     debugPrint("get! database");
     return;
   }
@@ -95,10 +92,8 @@ Future<void> saveData(diary saveDiary) async {
 Future<void> loadData() async {
   debugPrint("load!");
   diaryViewDB load = diaryViewDB();
-  for (int i = 0; i < diaryModel.length; i++) {
-    debugPrint("remove Model!$i");
-    diaryModel.removeAt(i);
-  }
+
+  diaryModel.clear();
   await load.getDiary();
   return;
 }
@@ -114,26 +109,3 @@ Future<void> updateData(diary updateDiary) async {
   diaryViewDB update = diaryViewDB();
   update.updateDiary(updateDiary);
 }
-
-// Future<List> loadData(String key) async {
-//   final prefs = await FlutterSecureStorage();
-//   List<String> value;
-//   final valueDate = prefs.read(key: "diaryModelDate$key").toString();
-//   final valueTitle = prefs.read(key: "diaryModelDate$key").toString();
-//   final valueMain = prefs.read(key: "diaryModelDate$key").toString();
-//   value = [valueDate, valueTitle, valueMain];
-//   return value;
-// }
-//
-// Future<void> saveLen(int value) async {
-//   final prefs = await FlutterSecureStorage();
-//
-//   await prefs.write(key: 'len', value: value.toString());
-// }
-//
-// Future<String> loadLen(String key) async {
-//   final prefs = await FlutterSecureStorage();
-//
-//   final value = prefs.read(key: "len");
-//   return value.toString();
-// }

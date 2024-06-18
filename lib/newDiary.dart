@@ -4,6 +4,7 @@ import 'main.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:riverpod/riverpod.dart';
 
 class newDiary extends StatelessWidget {
   newDiary({super.key});

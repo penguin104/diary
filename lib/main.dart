@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'firstView.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 import 'home.dart';
 import 'newDiary.dart';
 import 'more.dart';
@@ -40,27 +41,13 @@ class routeApp extends StatelessWidget {
 }
 
 Future<void> main() async {
-  // var dbPath = await getDatabasesPath();
-  // String path = "$dbPath/diary.db"; //DBパス
-  //
-  // Database databese = await openDatabase(path, version: 1,
-  //     onCreate: (Database db, int version) async {
-  //   await db.execute(
-  //       'CREATE TABLE diaryDb (id INTEGER PRIMARY KEY, date TEXT, title TEXT,mainText TEXT,cnt INTEGER)');
-  // });
-
-  // final a = MaterialApp(
-  //   home: Scaffold(
-  //     body: homeViewWidget,
-  //   ),
-// );
-  WidgetsFlutterBinding.ensureInitialized();
-  loadData();
-
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
   final a = routeApp();
+  final s = ProviderScope(child: a);
+  WidgetsFlutterBinding.ensureInitialized();
+  loadData();
 
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
   SystemChrome.setPreferredOrientations([
@@ -70,7 +57,7 @@ Future<void> main() async {
   ]).then((_) {
     runApp(ScreenUtilInit(
       designSize: const Size(428, 926), //基準となる画面サイズiphon13
-      builder: (BuildContext context, Widget? widget) => a,
+      builder: (BuildContext context, Widget? widget) => s,
     ));
   });
 
