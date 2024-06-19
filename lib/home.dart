@@ -30,7 +30,7 @@ class diary {
 
 diary diaryMoreList = diary("", "", "", 0);
 
-final List<diary> diaryModel = [];
+// final List<diary> diaryModel = [];
 
 Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   //日記リストウィジェット
@@ -122,6 +122,7 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
 }
 
 final diaryModelState = StateProvider<List<diary>>((ref) {
+  final List<diary> diaryModel = [];
   return diaryModel;
 });
 
@@ -137,7 +138,7 @@ class homeView extends ConsumerWidget {
     final diaryModelSt = ref.watch(diaryModelState); //todo riverpod勉強
 
     final listViewDiary = ListView.builder(
-        itemCount: diaryModel.length,
+        itemCount: diaryModelSt.length,
         itemBuilder: (c, i) =>
             modelToHomeDiaryWidget(diaryModelSt[i], context));
 

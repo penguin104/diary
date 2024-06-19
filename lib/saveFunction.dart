@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
 import 'home.dart';
 import 'newDiary.dart';
@@ -44,14 +45,16 @@ class diaryViewDB {
     );
   }
 
-  Future<void> getDiary() async {
+  Future<void> getDiary(WidgetRef ref) async {
+    final diaryModelSt = ref.watch(diaryModelState);
+
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
 
     maps.forEach((d) {
       print(d);
-      diaryModel.add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
+      diaryModelSt.add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
     });
     debugPrint("get! database");
     return;
@@ -89,12 +92,14 @@ Future<void> saveData(diary saveDiary) async {
   print("a ${await save.getDbPath()}");
 }
 
-Future<void> loadData() async {
+Future<void> loadData(WidgetRef ref) async {
+  final diaryModelSt = ref.watch(diaryModelState);
+
   debugPrint("load!");
   diaryViewDB load = diaryViewDB();
 
-  diaryModel.clear();
-  await load.getDiary();
+  diaryModelSt.clear();
+  await load.getDiary(ref);
   return;
 }
 
@@ -108,4 +113,15 @@ Future<void> updateData(diary updateDiary) async {
   debugPrint("update!");
   diaryViewDB update = diaryViewDB();
   update.updateDiary(updateDiary);
+}
+
+class dbControle extends ConsumerWidget {
+  const dbControle({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final diaryModelSt = ref.watch(diaryModelState);
+
+    return const Placeholder();
+  }
 }

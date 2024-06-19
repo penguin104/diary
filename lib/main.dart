@@ -47,7 +47,7 @@ Future<void> main() async {
   final a = routeApp();
   final s = ProviderScope(child: a);
   WidgetsFlutterBinding.ensureInitialized();
-  loadData();
+  // loadData(ref);
 
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
   SystemChrome.setPreferredOrientations([

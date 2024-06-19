@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
@@ -6,11 +7,13 @@ import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:riverpod/riverpod.dart';
 
-class newDiary extends StatelessWidget {
+class newDiary extends ConsumerWidget {
   newDiary({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final diaryModelSt = ref.watch(diaryModelState);
+
     final titleController = TextEditingController();
     final titleText = TextField(
       controller: titleController,
@@ -51,7 +54,7 @@ class newDiary extends StatelessWidget {
 
     void upLoad(BuildContext context) {
       diary addDiaryM = diary(dateNow.toString(), titleController.text,
-          textMain.text, diaryModel.length);
+          textMain.text, diaryModelSt.length);
 
       // diaryModel[addDiaryM.cnt]["cnt"] = addDiaryM.cnt;
       // diaryModel[addDiaryM.cnt]["date"] = addDiaryM.date;
@@ -63,10 +66,10 @@ class newDiary extends StatelessWidget {
       //   "title": titleController.text,
       //   "diaryText": textMain.text
       // };
-      diaryModel.add(addDiaryM);
-      debugPrint(diaryModel.toString());
+      diaryModelSt.add(addDiaryM);
+      debugPrint(diaryModelSt.toString());
       textMain.text = ""; //空白にする
-      debugPrint(diaryModel.length.toString());
+      debugPrint(diaryModelSt.length.toString());
       debugPrint("upload");
       debugPrint(diaryMoreList.toString());
 

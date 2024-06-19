@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
@@ -6,11 +7,13 @@ import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:riverpod/riverpod.dart';
 
-class delDialog extends StatelessWidget {
+class delDialog extends ConsumerWidget {
   const delDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final diaryModelSt = ref.watch(diaryModelState);
+
     final dialog = AlertDialog(
         title: Text(
           "日記を消してしまいますか?",
@@ -26,36 +29,36 @@ class delDialog extends StatelessWidget {
               child: Text("はい"),
               onTap: () {
                 var j = 0;
-                for (int i = 0; i < diaryModel.length; i++) {
-                  if (diaryMoreList.cnt == diaryModel[i].cnt) {
-                    diaryModel.removeAt(i);
+                for (int i = 0; i < diaryModelSt.length; i++) {
+                  if (diaryMoreList.cnt == diaryModelSt[i].cnt) {
+                    diaryModelSt.removeAt(i);
                     delData(diaryMoreList);
                     debugPrint("del data!");
-                    if (diaryModel.length > 1) {
-                      for (j = i; j < diaryModel.length - 1; j++) {
-                        diaryModel[j] = diaryModel[j + 1]; //詰める
+                    if (diaryModelSt.length > 1) {
+                      for (j = i; j < diaryModelSt.length - 1; j++) {
+                        diaryModelSt[j] = diaryModelSt[j + 1]; //詰める
                         print("shift!");
                       }
                     }
                   }
                 }
 
-                if (diaryModel.isNotEmpty) {
-                  for (int i = 0; i < diaryModel.length; i++) {
-                    updateData(diaryModel[i]);
+                if (diaryModelSt.isNotEmpty) {
+                  for (int i = 0; i < diaryModelSt.length; i++) {
+                    updateData(diaryModelSt[i]);
                   }
                 }
 
-                if (diaryModel.length > 1 &&
-                    diaryMoreList.cnt == diaryModel.length - 1) {
+                if (diaryModelSt.length > 1 &&
+                    diaryMoreList.cnt == diaryModelSt.length - 1) {
                   //  長さで判断したら最後のやつ消したときにエラー出る
                   //
-                  delData(diaryModel[j]);
-                  diaryModel.removeAt(j);
+                  delData(diaryModelSt[j]);
+                  diaryModelSt.removeAt(j);
                 }
                 WidgetsFlutterBinding.ensureInitialized();
                 context.go("/home");
-                loadData();
+                loadData(ref);
                 // context.go("/home");
                 // Navigator.pushReplacement(
                 //     context,
