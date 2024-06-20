@@ -13,7 +13,7 @@ class newDiary extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final diaryModelSt = ref.watch(diaryModelState);
-
+    final notifier = ref.read(diaryModelState.notifier);
     final titleController = TextEditingController();
     final titleText = TextField(
       controller: titleController,
@@ -56,17 +56,8 @@ class newDiary extends ConsumerWidget {
       diary addDiaryM = diary(dateNow.toString(), titleController.text,
           textMain.text, diaryModelSt.length);
 
-      // diaryModel[addDiaryM.cnt]["cnt"] = addDiaryM.cnt;
-      // diaryModel[addDiaryM.cnt]["date"] = addDiaryM.date;
-      // diaryModel[addDiaryM.cnt]["title"] = addDiaryM.title;
-      // diaryModel[addDiaryM.cnt]["diaryText"] = addDiaryM.diaryText;
-      // Map add = {
-      //   "cnt": diaryModel.length,
-      //   "date": dateNow.toString(),
-      //   "title": titleController.text,
-      //   "diaryText": textMain.text
-      // };
-      diaryModelSt.add(addDiaryM);
+      notifier.state.add(addDiaryM);
+      // diaryModelSt.add(addDiaryM);
       debugPrint(diaryModelSt.toString());
       textMain.text = ""; //空白にする
       debugPrint(diaryModelSt.length.toString());

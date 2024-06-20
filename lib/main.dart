@@ -11,7 +11,7 @@ import 'package:flutter/services.dart'; //画面固定
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class routeApp extends StatelessWidget {
+class routeApp extends ConsumerWidget {
   routeApp({super.key});
 
   final router = GoRouter(initialLocation: "/home", routes: [
@@ -30,7 +30,9 @@ class routeApp extends StatelessWidget {
   ]);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    loadData(ref);
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationProvider: router.routeInformationProvider,
@@ -47,7 +49,6 @@ Future<void> main() async {
   final a = routeApp();
   final s = ProviderScope(child: a);
   WidgetsFlutterBinding.ensureInitialized();
-  // loadData(ref);
 
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
   SystemChrome.setPreferredOrientations([

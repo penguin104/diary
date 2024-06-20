@@ -47,14 +47,18 @@ class diaryViewDB {
 
   Future<void> getDiary(WidgetRef ref) async {
     final diaryModelSt = ref.watch(diaryModelState);
+    final notifier = ref.read(diaryModelState.notifier);
 
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
 
     maps.forEach((d) {
+      //todo ここから6/20
       print(d);
-      diaryModelSt.add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
+      notifier.state
+          .add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
+      print(notifier.state);
     });
     debugPrint("get! database");
     return;
@@ -94,11 +98,12 @@ Future<void> saveData(diary saveDiary) async {
 
 Future<void> loadData(WidgetRef ref) async {
   final diaryModelSt = ref.watch(diaryModelState);
+  final notifier = ref.read(diaryModelState.notifier);
 
   debugPrint("load!");
   diaryViewDB load = diaryViewDB();
 
-  diaryModelSt.clear();
+  notifier.state.clear();
   await load.getDiary(ref);
   return;
 }
@@ -113,15 +118,4 @@ Future<void> updateData(diary updateDiary) async {
   debugPrint("update!");
   diaryViewDB update = diaryViewDB();
   update.updateDiary(updateDiary);
-}
-
-class dbControle extends ConsumerWidget {
-  const dbControle({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(diaryModelState);
-
-    return const Placeholder();
-  }
 }

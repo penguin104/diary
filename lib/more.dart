@@ -13,6 +13,7 @@ class delDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final diaryModelSt = ref.watch(diaryModelState);
+    final notifier = ref.read(diaryModelState.notifier);
 
     final dialog = AlertDialog(
         title: Text(
@@ -31,12 +32,12 @@ class delDialog extends ConsumerWidget {
                 var j = 0;
                 for (int i = 0; i < diaryModelSt.length; i++) {
                   if (diaryMoreList.cnt == diaryModelSt[i].cnt) {
-                    diaryModelSt.removeAt(i);
+                    notifier.state.removeAt(i);
                     delData(diaryMoreList);
                     debugPrint("del data!");
                     if (diaryModelSt.length > 1) {
                       for (j = i; j < diaryModelSt.length - 1; j++) {
-                        diaryModelSt[j] = diaryModelSt[j + 1]; //詰める
+                        notifier.state[j] = notifier.state[j + 1]; //詰める
                         print("shift!");
                       }
                     }
@@ -45,7 +46,7 @@ class delDialog extends ConsumerWidget {
 
                 if (diaryModelSt.isNotEmpty) {
                   for (int i = 0; i < diaryModelSt.length; i++) {
-                    updateData(diaryModelSt[i]);
+                    updateData(notifier.state[i]);
                   }
                 }
 
@@ -53,8 +54,8 @@ class delDialog extends ConsumerWidget {
                     diaryMoreList.cnt == diaryModelSt.length - 1) {
                   //  長さで判断したら最後のやつ消したときにエラー出る
                   //
-                  delData(diaryModelSt[j]);
-                  diaryModelSt.removeAt(j);
+                  delData(notifier.state[j]);
+                  notifier.state.removeAt(j);
                 }
                 WidgetsFlutterBinding.ensureInitialized();
                 context.go("/home");

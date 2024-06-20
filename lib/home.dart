@@ -30,6 +30,11 @@ class diary {
 
 diary diaryMoreList = diary("", "", "", 0);
 
+final diaryModelState = StateProvider<List<diary>>((ref) {
+  final List<diary> diaryModel = [];
+  return diaryModel;
+});
+
 // final List<diary> diaryModel = [];
 
 Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
@@ -121,11 +126,6 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   return conHomeDiary;
 }
 
-final diaryModelState = StateProvider<List<diary>>((ref) {
-  final List<diary> diaryModel = [];
-  return diaryModel;
-});
-
 class homeView extends ConsumerWidget {
   homeView({super.key});
 
@@ -136,11 +136,15 @@ class homeView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final diaryModelSt = ref.watch(diaryModelState); //todo riverpod勉強
-
+    final notifire = ref.read(diaryModelState.notifier);
     final listViewDiary = ListView.builder(
         itemCount: diaryModelSt.length,
-        itemBuilder: (c, i) =>
-            modelToHomeDiaryWidget(diaryModelSt[i], context));
+        itemBuilder: (c, i) {
+          modelToHomeDiaryWidget(diaryModelSt[i], context);
+        });
+    if (diaryModelSt.isNotEmpty) {
+      loadData(ref);
+    }
 
     final conDiary = Container(
       height: 700.sp,
