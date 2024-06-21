@@ -52,15 +52,18 @@ class diaryViewDB {
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
+    print("state bef");
+    print(notifier.state);
 
     maps.forEach((d) {
-      //todo ここから6/20
       print(d);
       notifier.state
           .add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
-      print(notifier.state);
     });
     debugPrint("get! database");
+    diaryModelSt;
+    print("watch");
+    print(notifier.state);
     return;
   }
 
@@ -97,14 +100,13 @@ Future<void> saveData(diary saveDiary) async {
 }
 
 Future<void> loadData(WidgetRef ref) async {
+  debugPrint("load!");
+  final diaryViewDB load = diaryViewDB();
   final diaryModelSt = ref.watch(diaryModelState);
   final notifier = ref.read(diaryModelState.notifier);
 
-  debugPrint("load!");
-  diaryViewDB load = diaryViewDB();
-
   notifier.state.clear();
-  await load.getDiary(ref);
+  load.getDiary(ref);
   return;
 }
 

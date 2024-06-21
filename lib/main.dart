@@ -11,6 +11,33 @@ import 'package:flutter/services.dart'; //画面固定
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+class diary {
+  final String date;
+  final String title;
+  final String diaryText;
+  int cnt;
+
+  Map<String, Object> toMap() {
+    return {
+      "id": cnt,
+      "date": date,
+      "title": title,
+      "diaryText": diaryText,
+      "cnt": cnt,
+    };
+  }
+
+  // final BuildContext context;
+  diary(this.date, this.title, this.diaryText, this.cnt);
+}
+
+diary diaryMoreList = diary("", "", "", 0);
+
+final diaryModelState = StateProvider<List<diary>>((ref) {
+  final List<diary> diaryModel = [];
+  return diaryModel;
+});
+
 class routeApp extends ConsumerWidget {
   routeApp({super.key});
 
@@ -29,16 +56,22 @@ class routeApp extends ConsumerWidget {
     ),
   ]);
 
+  // void loadDiary(WidgetRef ref) {
+  //   loadData(ref);
+  // }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     loadData(ref);
 
-    return MaterialApp.router(
+    final material = MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
     );
+
+    return material;
   }
 }
 
@@ -48,7 +81,6 @@ Future<void> main() async {
 
   final a = routeApp();
   final s = ProviderScope(child: a);
-  WidgetsFlutterBinding.ensureInitialized();
 
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
   SystemChrome.setPreferredOrientations([

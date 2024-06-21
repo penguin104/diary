@@ -8,33 +8,6 @@ import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:riverpod/riverpod.dart';
 
-class diary {
-  final String date;
-  final String title;
-  final String diaryText;
-  int cnt;
-
-  Map<String, Object> toMap() {
-    return {
-      "id": cnt,
-      "date": date,
-      "title": title,
-      "diaryText": diaryText,
-      "cnt": cnt,
-    };
-  }
-
-  // final BuildContext context;
-  diary(this.date, this.title, this.diaryText, this.cnt);
-}
-
-diary diaryMoreList = diary("", "", "", 0);
-
-final diaryModelState = StateProvider<List<diary>>((ref) {
-  final List<diary> diaryModel = [];
-  return diaryModel;
-});
-
 // final List<diary> diaryModel = [];
 
 Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
@@ -135,16 +108,15 @@ class homeView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(diaryModelState); //todo riverpod勉強
+    final diaryModelSt = ref.watch(diaryModelState);
     final notifire = ref.read(diaryModelState.notifier);
     final listViewDiary = ListView.builder(
-        itemCount: diaryModelSt.length,
+        itemCount: notifire.state.length,
         itemBuilder: (c, i) {
-          modelToHomeDiaryWidget(diaryModelSt[i], context);
+          // loadData(ref);
+          print("show ListView");
+          return modelToHomeDiaryWidget(diaryModelSt[i], context);
         });
-    if (diaryModelSt.isNotEmpty) {
-      loadData(ref);
-    }
 
     final conDiary = Container(
       height: 700.sp,
@@ -197,6 +169,7 @@ class homeView extends ConsumerWidget {
       floatingActionButton: conAddButton,
     );
 
+    // loadData(ref);
     return homeViewWidget;
   }
 }

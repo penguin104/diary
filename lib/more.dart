@@ -29,13 +29,16 @@ class delDialog extends ConsumerWidget {
           GestureDetector(
               child: Text("はい"),
               onTap: () {
+                diary last = diaryModelSt[diaryModelSt.length - 1];
                 var j = 0;
                 for (int i = 0; i < diaryModelSt.length; i++) {
-                  if (diaryMoreList.cnt == diaryModelSt[i].cnt) {
+                  if (diaryMoreList.cnt == diaryModelSt[i].cnt &&
+                      diaryMoreList.date == diaryModelSt[i].date) {
                     notifier.state.removeAt(i);
                     delData(diaryMoreList);
+
                     debugPrint("del data!");
-                    if (diaryModelSt.length > 1) {
+                    if (diaryModelSt.isNotEmpty) {
                       for (j = i; j < diaryModelSt.length - 1; j++) {
                         notifier.state[j] = notifier.state[j + 1]; //詰める
                         print("shift!");
@@ -44,27 +47,21 @@ class delDialog extends ConsumerWidget {
                   }
                 }
 
-                if (diaryModelSt.isNotEmpty) {
-                  for (int i = 0; i < diaryModelSt.length; i++) {
-                    updateData(notifier.state[i]);
-                  }
+                // if (diaryModelSt.length > 1 &&
+                //     diaryMoreList.cnt < diaryModelSt.length - 1) {
+                //   delData(last);
+                //   notifier.state.removeAt(j);
+                // }
+
+                if (diaryModelSt.length > 0 &&
+                    diaryModelSt[diaryModelSt.length - 1].cnt <
+                        diaryModelSt.length) {
+                  notifier.state.removeAt(diaryModelSt.length - 1);
                 }
 
-                if (diaryModelSt.length > 1 &&
-                    diaryMoreList.cnt == diaryModelSt.length - 1) {
-                  //  長さで判断したら最後のやつ消したときにエラー出る
-                  //
-                  delData(notifier.state[j]);
-                  notifier.state.removeAt(j);
-                }
-                WidgetsFlutterBinding.ensureInitialized();
-                context.go("/home");
                 loadData(ref);
-                // context.go("/home");
-                // Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (BuildContext context) => homeView()));
+                diaryModelSt;
+                context.go("/home");
               }),
         ]);
     return dialog;
