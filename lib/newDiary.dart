@@ -12,8 +12,8 @@ class newDiary extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(diaryModelState);
-    final notifier = ref.read(diaryModelState.notifier);
+    final diaryModelSt = ref.watch(futureDiary).requireValue;
+    final notifier = ref.watch(diaryModelState.notifier);
     final titleController = TextEditingController();
     final titleText = TextField(
       controller: titleController,

@@ -102,18 +102,20 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
 class homeView extends ConsumerWidget {
   homeView({super.key});
 
-  moreDiary(BuildContext context) {
+  @override
+  void moreDiary(BuildContext context) {
     context.push("/more");
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(diaryModelState);
-    final notifire = ref.read(diaryModelState.notifier);
+    loadData(ref);
+    final List<diary> diaryModelSt = ref.watch(futureDiary).requireValue;
+    final notifire = ref.watch(diaryModelState);
+    // loadData(ref);
     final listViewDiary = ListView.builder(
-        itemCount: notifire.state.length,
+        itemCount: diaryModelSt.length,
         itemBuilder: (c, i) {
-          // loadData(ref);
           print("show ListView");
           return modelToHomeDiaryWidget(diaryModelSt[i], context);
         });
@@ -121,7 +123,6 @@ class homeView extends ConsumerWidget {
     final conDiary = Container(
       height: 700.sp,
       width: double.infinity,
-      // color: Colors.black12,
       child: listViewDiary, //diaryList
     );
 
@@ -169,7 +170,6 @@ class homeView extends ConsumerWidget {
       floatingActionButton: conAddButton,
     );
 
-    // loadData(ref);
     return homeViewWidget;
   }
 }

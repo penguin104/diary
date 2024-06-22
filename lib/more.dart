@@ -12,8 +12,8 @@ class delDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(diaryModelState);
-    final notifier = ref.read(diaryModelState.notifier);
+    final diaryModelSt = ref.watch(futureDiary).requireValue;
+    final notifier = ref.watch(diaryModelState.notifier);
 
     final dialog = AlertDialog(
         title: Text(
@@ -29,7 +29,6 @@ class delDialog extends ConsumerWidget {
           GestureDetector(
               child: Text("はい"),
               onTap: () {
-                diary last = diaryModelSt[diaryModelSt.length - 1];
                 var j = 0;
                 for (int i = 0; i < diaryModelSt.length; i++) {
                   if (diaryMoreList.cnt == diaryModelSt[i].cnt &&
@@ -43,24 +42,18 @@ class delDialog extends ConsumerWidget {
                         notifier.state[j] = notifier.state[j + 1]; //詰める
                         print("shift!");
                       }
+                      if (diaryModelSt.length > 1 &&
+                          diaryModelSt[diaryModelSt.length - 1].cnt ==
+                              diaryModelSt[diaryModelSt.length - 2].cnt) {
+                        diaryModelSt
+                            .remove(diaryModelSt[diaryModelSt.length - 1]);
+                      }
                     }
                   }
                 }
 
-                // if (diaryModelSt.length > 1 &&
-                //     diaryMoreList.cnt < diaryModelSt.length - 1) {
-                //   delData(last);
-                //   notifier.state.removeAt(j);
-                // }
-
-                if (diaryModelSt.length > 0 &&
-                    diaryModelSt[diaryModelSt.length - 1].cnt <
-                        diaryModelSt.length) {
-                  notifier.state.removeAt(diaryModelSt.length - 1);
-                }
-
                 loadData(ref);
-                diaryModelSt;
+
                 context.go("/home");
               }),
         ]);

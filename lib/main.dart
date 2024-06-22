@@ -34,8 +34,11 @@ class diary {
 diary diaryMoreList = diary("", "", "", 0);
 
 final diaryModelState = StateProvider<List<diary>>((ref) {
-  final List<diary> diaryModel = [];
+  List<diary> diaryModel = [];
   return diaryModel;
+});
+final futureDiary = FutureProvider((ref) {
+  return ref.watch(diaryModelState);
 });
 
 class routeApp extends ConsumerWidget {
@@ -56,14 +59,8 @@ class routeApp extends ConsumerWidget {
     ),
   ]);
 
-  // void loadDiary(WidgetRef ref) {
-  //   loadData(ref);
-  // }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    loadData(ref);
-
     final material = MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationProvider: router.routeInformationProvider,
@@ -76,13 +73,13 @@ class routeApp extends ConsumerWidget {
 }
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
   final a = routeApp();
   final s = ProviderScope(child: a);
 
-  WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
   SystemChrome.setPreferredOrientations([
     // 縦向き
     DeviceOrientation.portraitUp,

@@ -32,7 +32,7 @@ class diaryViewDB {
         );
       },
     );
-    return await database;
+    return database;
   }
 
   Future<void> insertDiary(diary diarydb) async {
@@ -47,13 +47,13 @@ class diaryViewDB {
 
   Future<void> getDiary(WidgetRef ref) async {
     final diaryModelSt = ref.watch(diaryModelState);
-    final notifier = ref.read(diaryModelState.notifier);
+    final notifier = ref.watch(diaryModelState.notifier);
 
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
     print("state bef");
-    print(notifier.state);
+    print(ref.watch(futureDiary));
 
     maps.forEach((d) {
       print(d);
@@ -102,11 +102,16 @@ Future<void> saveData(diary saveDiary) async {
 Future<void> loadData(WidgetRef ref) async {
   debugPrint("load!");
   final diaryViewDB load = diaryViewDB();
-  final diaryModelSt = ref.watch(diaryModelState);
-  final notifier = ref.read(diaryModelState.notifier);
-
-  notifier.state.clear();
+  print("done1");
+  final notifier = ref.watch(diaryModelState.notifier);
+  print("done3");
+  if (notifier.state.isNotEmpty) {
+    print("done4");
+    notifier.state.clear();
+  }
+  print("done5");
   load.getDiary(ref);
+  print("done6");
   return;
 }
 
