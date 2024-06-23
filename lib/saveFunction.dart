@@ -45,7 +45,7 @@ class diaryViewDB {
     );
   }
 
-  Future<void> getDiary(WidgetRef ref) async {
+  void getDiary(WidgetRef ref) async {
     final diaryModelSt = ref.watch(diaryModelState);
     final notifier = ref.watch(diaryModelState.notifier);
 
@@ -61,6 +61,7 @@ class diaryViewDB {
           .add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
     });
     debugPrint("get! database");
+    print(ref.watch(futureDiary));
     diaryModelSt;
     print("watch");
     print(notifier.state);
@@ -99,7 +100,7 @@ Future<void> saveData(diary saveDiary) async {
   print("a ${await save.getDbPath()}");
 }
 
-Future<void> loadData(WidgetRef ref) async {
+void loadData(WidgetRef ref) {
   debugPrint("load!");
   final diaryViewDB load = diaryViewDB();
   print("done1");
@@ -113,6 +114,7 @@ Future<void> loadData(WidgetRef ref) async {
   load.getDiary(ref);
   print("done6");
   return;
+  ;
 }
 
 Future<void> delData(diary delDiary) async {
