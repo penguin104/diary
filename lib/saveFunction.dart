@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'dart:math';
 
 // データベースクラス
 class diaryViewDB {
@@ -45,7 +46,7 @@ class diaryViewDB {
     );
   }
 
-  void getDiary(WidgetRef ref) async {
+  Future<void> getDiary(WidgetRef ref) async {
     final diaryModelSt = ref.watch(diaryModelState);
     final notifier = ref.watch(diaryModelState.notifier);
 
@@ -68,14 +69,14 @@ class diaryViewDB {
     return;
   }
 
-  Future<void> updateDiary(diary diaryUp) async {
+  Future<void> updateDiary(diary diaryUp, int afterCnt) async {
     Future database = init();
     final db = await database;
     await db.update(
       'diary',
       diaryUp.toMap(),
       where: "id = ?",
-      whereArgs: [diaryUp.cnt],
+      whereArgs: [afterCnt],
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
   }
@@ -93,6 +94,19 @@ class diaryViewDB {
   diaryViewDB();
 }
 
+Future<int> maxCnt(WidgetRef ref) async {
+  final diaryModelSt = ref.watch(diaryModelState);
+  List<int> temp = [];
+  int maxCnt = 0;
+
+  for (var value in diaryModelSt) {
+    temp.add(value.cnt);
+  }
+  maxCnt = temp.reduce(max);
+
+  return maxCnt;
+}
+
 Future<void> saveData(diary saveDiary) async {
   diaryViewDB save = diaryViewDB();
   save.insertDiary(saveDiary);
@@ -100,7 +114,7 @@ Future<void> saveData(diary saveDiary) async {
   print("a ${await save.getDbPath()}");
 }
 
-void loadData(WidgetRef ref) {
+Future<void> loadData(WidgetRef ref) async {
   debugPrint("load!");
   final diaryViewDB load = diaryViewDB();
   print("done1");
@@ -111,10 +125,9 @@ void loadData(WidgetRef ref) {
     notifier.state.clear();
   }
   print("done5");
-  load.getDiary(ref);
+  await load.getDiary(ref);
   print("done6");
   return;
-  ;
 }
 
 Future<void> delData(diary delDiary) async {
@@ -123,8 +136,9 @@ Future<void> delData(diary delDiary) async {
   del.deleteDiary(delDiary.cnt);
 }
 
-Future<void> updateData(diary updateDiary) async {
+Future<void> updateData(WidgetRef ref, int i) async {
+  final diaryModelSt = ref.watch(diaryModelState);
   debugPrint("update!");
   diaryViewDB update = diaryViewDB();
-  update.updateDiary(updateDiary);
+  update.updateDiary(diaryModelSt[i], diaryModelSt[i].cnt);
 }

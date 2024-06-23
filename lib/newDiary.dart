@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:riverpod/riverpod.dart';
 
 class newDiary extends ConsumerWidget {
   newDiary({super.key});
@@ -52,9 +50,10 @@ class newDiary extends ConsumerWidget {
     final dateDel = date.substring(16, dateStringLen);
     final dateNow = date.replaceAll(dateDel, "");
 
-    void upLoad(BuildContext context) {
-      diary addDiaryM = diary(dateNow.toString(), titleController.text,
-          textMain.text, diaryModelSt.length);
+    void upLoad(BuildContext context) async {
+      int max = await maxCnt(ref);
+      diary addDiaryM = diary(
+          dateNow.toString(), titleController.text, textMain.text, max + 1);
 
       notifier.state.add(addDiaryM);
       // diaryModelSt.add(addDiaryM);

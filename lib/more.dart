@@ -39,12 +39,18 @@ class delDialog extends ConsumerWidget {
                     debugPrint("del data!");
                     if (diaryModelSt.isNotEmpty) {
                       for (j = i; j < diaryModelSt.length - 1; j++) {
-                        notifier.state[j] = notifier.state[j + 1]; //詰める
+                        notifier.state[j] = diaryModelSt[j + 1]; //詰める
+                        // notifier.state[j].date = diaryModelSt[j + 1].date;
+                        // notifier.state[j].title = diaryModelSt[j + 1].title;
+                        // notifier.state[j].diaryText =
+                        //     diaryModelSt[j + 1].diaryText;
                         print("shift!");
                       }
                       if (diaryModelSt.length > 1 &&
                           diaryModelSt[diaryModelSt.length - 1].cnt ==
-                              diaryModelSt[diaryModelSt.length - 2].cnt) {
+                              diaryModelSt[diaryModelSt.length - 2].cnt &&
+                          diaryModelSt[diaryModelSt.length - 1].title ==
+                              diaryModelSt[diaryModelSt.length - 2].title) {
                         diaryModelSt
                             .remove(diaryModelSt[diaryModelSt.length - 1]);
                       }
