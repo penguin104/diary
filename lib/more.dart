@@ -40,10 +40,6 @@ class delDialog extends ConsumerWidget {
                     if (diaryModelSt.isNotEmpty) {
                       for (j = i; j < diaryModelSt.length - 1; j++) {
                         notifier.state[j] = diaryModelSt[j + 1]; //詰める
-                        // notifier.state[j].date = diaryModelSt[j + 1].date;
-                        // notifier.state[j].title = diaryModelSt[j + 1].title;
-                        // notifier.state[j].diaryText =
-                        //     diaryModelSt[j + 1].diaryText;
                         print("shift!");
                       }
                       if (diaryModelSt.length > 1 &&

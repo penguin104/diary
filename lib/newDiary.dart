@@ -51,7 +51,12 @@ class newDiary extends ConsumerWidget {
     final dateNow = date.replaceAll(dateDel, "");
 
     void upLoad(BuildContext context) async {
-      int max = await maxCnt(ref);
+      int max;
+      if (diaryModelSt.isNotEmpty) {
+        max = await maxCnt(ref);
+      } else {
+        max = 0;
+      }
       diary addDiaryM = diary(
           dateNow.toString(), titleController.text, textMain.text, max + 1);
 

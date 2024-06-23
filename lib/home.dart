@@ -116,13 +116,12 @@ class homeView extends ConsumerWidget {
       print("aa");
       print(ref.watch(futureDiary).requireValue);
       loadData(ref);
-      print("bbb");
-      print(ref.watch(futureDiary).requireValue);
     });
+    print("bbb");
+    print(ref.watch(futureDiary).requireValue);
     final listViewDiary = ListView.builder(
         itemCount: notifire.length,
         itemBuilder: (c, i) {
-          print("show ListView");
           return modelToHomeDiaryWidget(diaryModelSt[i], context);
         });
 
