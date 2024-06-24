@@ -114,11 +114,21 @@ class homeView extends ConsumerWidget {
 
     Future.delayed(Duration(seconds: 1), () {
       print("aa");
-      print(ref.watch(futureDiary).requireValue);
-      loadData(ref);
+      if (diaryModelSt.isEmpty) {
+        // ref.refresh(diaryModelState);
+        print("refresh");
+        loadData(ref);
+        ref.invalidate(futureDiary);
+        ref.read(diaryModelState);
+      }
+      // loadData(ref);
     });
-    print("bbb");
-    print(ref.watch(futureDiary).requireValue);
+
+    // Future.delayed(Duration(seconds: 2), () {
+    //
+    // });
+    // print("bbb");
+    // print(ref.watch(futureDiary).requireValue);
     final listViewDiary = ListView.builder(
         itemCount: notifire.length,
         itemBuilder: (c, i) {
