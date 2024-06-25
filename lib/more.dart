@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'home.dart';
 import 'main.dart';
 import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
@@ -12,7 +11,7 @@ class delDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(futureDiary).requireValue;
+    final diaryModelSt = ref.watch(diaryModelState);
     final notifier = ref.watch(diaryModelState.notifier);
 
     final dialog = AlertDialog(
@@ -55,7 +54,6 @@ class delDialog extends ConsumerWidget {
                 }
 
                 loadData(ref);
-
                 context.go("/home");
               }),
         ]);

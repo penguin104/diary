@@ -10,7 +10,7 @@ class newDiary extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final diaryModelSt = ref.watch(futureDiary).requireValue;
+    final diaryModelSt = ref.watch(diaryModelState);
     final notifier = ref.watch(diaryModelState.notifier);
     final titleController = TextEditingController();
     final titleText = TextField(
@@ -52,6 +52,7 @@ class newDiary extends ConsumerWidget {
 
     void upLoad(BuildContext context) async {
       int max;
+
       if (diaryModelSt.isNotEmpty) {
         max = await maxCnt(ref);
       } else {

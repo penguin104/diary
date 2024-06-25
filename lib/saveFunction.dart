@@ -54,7 +54,7 @@ class diaryViewDB {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
     print("state bef");
-    print(ref.watch(futureDiary)); //todo futureDiaryにdiaryModelStateが反映されてない
+    // print(ref.watch(futureDiary)); //todo futureDiaryにdiaryModelStateが反映されてない
 
     maps.forEach((d) {
       print(d);
@@ -62,7 +62,7 @@ class diaryViewDB {
           .add(diary(d['date'], d['title'], d['diaryText'], d['cnt']));
     });
     debugPrint("get! database");
-    print(ref.watch(futureDiary));
+    // print(ref.watch(futureDiary));
     diaryModelSt;
     print("watch");
     print(notifier.state);

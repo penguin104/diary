@@ -109,20 +109,16 @@ class homeView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<diary> diaryModelSt = ref.watch(futureDiary).requireValue;
-    final notifire = ref.watch(diaryModelState);
+    late List<diary> diaryModelSt = ref.watch(diaryModelState);
+    var notifire = ref.watch(diaryModelState.notifier);
 
-    Future.delayed(Duration(seconds: 1), () {
-      print("aa");
-      if (diaryModelSt.isEmpty) {
-        // ref.refresh(diaryModelState);
-        print("refresh");
-        loadData(ref);
-        ref.invalidate(futureDiary);
-        ref.read(diaryModelState);
-      }
-      // loadData(ref);
-    });
+    // Future.delayed(Duration(seconds: 1), () {
+    //   //   print("aa");
+    //
+    //   // ref.refresh(diaryModelState);
+
+    // loadData(ref);
+    // });
 
     // Future.delayed(Duration(seconds: 2), () {
     //
@@ -130,7 +126,7 @@ class homeView extends ConsumerWidget {
     // print("bbb");
     // print(ref.watch(futureDiary).requireValue);
     final listViewDiary = ListView.builder(
-        itemCount: notifire.length,
+        itemCount: diaryModelSt.length,
         itemBuilder: (c, i) {
           return modelToHomeDiaryWidget(diaryModelSt[i], context);
         });

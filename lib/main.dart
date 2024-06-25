@@ -37,9 +37,9 @@ final diaryModelState = StateProvider<List<diary>>((ref) {
   List<diary> diaryModel = [];
   return diaryModel;
 });
-final futureDiary = FutureProvider((ref) {
-  return ref.watch(diaryModelState);
-});
+// final futureDiary = FutureProvider((ref) {
+//   return ref.watch(diaryModelState);
+// });
 
 class routeApp extends ConsumerWidget {
   routeApp({super.key});
@@ -68,6 +68,14 @@ class routeApp extends ConsumerWidget {
       routerDelegate: router.routerDelegate,
     );
 
+    Future.delayed(Duration(seconds: 1), () {
+      //mainでなんとかなんねーかなー
+
+      loadData(ref);
+      print("build");
+      ref.watch(diaryModelState);
+    });
+    print("return build");
     return material;
   }
 }
