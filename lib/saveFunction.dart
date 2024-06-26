@@ -63,9 +63,6 @@ class diaryViewDB {
     });
     debugPrint("get! database");
     // print(ref.watch(futureDiary));
-    diaryModelSt;
-    print("watch");
-    print(notifier.state);
     return;
   }
 
@@ -111,7 +108,7 @@ Future<void> saveData(diary saveDiary) async {
   diaryViewDB save = diaryViewDB();
   save.insertDiary(saveDiary);
   debugPrint("save!!");
-  print("a ${await save.getDbPath()}");
+  // print("a ${await save.getDbPath()}");
 }
 
 Future<void> loadData(WidgetRef ref) async {
@@ -126,6 +123,7 @@ Future<void> loadData(WidgetRef ref) async {
   }
   print("done5");
   await load.getDiary(ref);
+  // ref.refresh(diaryModelState);
   print("done6");
   return;
 }

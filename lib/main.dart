@@ -11,6 +11,8 @@ import 'package:flutter/services.dart'; //画面固定
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+var flag = 0;
+
 class diary {
   final String date;
   final String title;
@@ -35,11 +37,13 @@ diary diaryMoreList = diary("", "", "", 0);
 
 final diaryModelState = StateProvider<List<diary>>((ref) {
   List<diary> diaryModel = [];
+
   return diaryModel;
 });
 // final futureDiary = FutureProvider((ref) {
 //   return ref.watch(diaryModelState);
 // });
+// final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class routeApp extends ConsumerWidget {
   routeApp({super.key});
@@ -47,7 +51,12 @@ class routeApp extends ConsumerWidget {
   final router = GoRouter(initialLocation: "/home", routes: [
     GoRoute(
       path: "/home",
-      builder: (context, state) => homeView(),
+      builder: (context, state) {
+        flag = 0;
+        print("flag flag");
+        print(flag);
+        return homeView();
+      },
     ),
     GoRoute(
       path: "/new",
@@ -68,20 +77,21 @@ class routeApp extends ConsumerWidget {
       routerDelegate: router.routerDelegate,
     );
 
-    Future.delayed(Duration(seconds: 1), () {
-      //mainでなんとかなんねーかなー
-
-      loadData(ref);
-      print("build");
-      ref.watch(diaryModelState);
-    });
-    print("return build");
+    // Future.delayed(Duration(seconds: 1), () {
+    //   //mainでなんとかなんねーかなー
+    //
+    //   loadData(ref);
+    //   print("build");
+    //   ref.watch(diaryModelState);
+    // });
+    // print("return build");
     return material;
   }
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
