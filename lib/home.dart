@@ -99,29 +99,32 @@ Widget modelToHomeDiaryWidget(diary diaryModelWidget, BuildContext context) {
   return conHomeDiary;
 }
 
-class homeView extends ConsumerWidget {
-  homeView({super.key});
+class homeView extends ConsumerStatefulWidget {
+  const homeView({Key? key}) : super(key: key);
 
   @override
+  homeState createState() => homeState();
+}
+
+class homeState extends ConsumerState<homeView> {
+  @override
+  void initState() {
+    // implement initState
+    super.initState();
+    // Future.delayed(Duration.zero, () {
+    //   loadData(ref);
+    //   // ref.refresh(diaryModelState);
+    // });
+  }
+
   void moreDiary(BuildContext context) {
     context.push("/more");
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     late List<diary> diaryModelSt = ref.watch(diaryModelState);
     var notifire = ref.watch(diaryModelState.notifier);
-    if (flag == 0) {
-      //todo 実機なんか消える
-      Future.delayed(Duration(seconds: 1), () {
-        // if (flag == 0) {
-        ref.refresh(diaryModelState);
-        loadData(ref);
-        // ref.refresh(diaryModelState);
-        flag = 1;
-        // }
-      });
-    }
 
     final listViewDiary = ListView.builder(
         itemCount: diaryModelSt.length,

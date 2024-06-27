@@ -11,7 +11,8 @@ import 'package:flutter/services.dart'; //画面固定
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-var flag = 0;
+//
+// var flag = 0;
 
 class diary {
   final String date;
@@ -45,16 +46,31 @@ final diaryModelState = StateProvider<List<diary>>((ref) {
 // });
 // final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
-class routeApp extends ConsumerWidget {
-  routeApp({super.key});
+class routeApp extends ConsumerStatefulWidget {
+  // routeApp({super.key});
+
+  const routeApp({Key? key}) : super(key: key);
+
+  @override
+  routeState createState() => routeState();
+}
+
+class routeState extends ConsumerState<routeApp> {
+  @override
+  void initState() {
+    //  implement initState
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      ref.watch(diaryModelState);
+      loadData(ref);
+    });
+  }
 
   final router = GoRouter(initialLocation: "/home", routes: [
     GoRoute(
       path: "/home",
       builder: (context, state) {
-        flag = 0;
-        print("flag flag");
-        print(flag);
         return homeView();
       },
     ),
@@ -69,7 +85,7 @@ class routeApp extends ConsumerWidget {
   ]);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final material = MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationProvider: router.routeInformationProvider,
@@ -77,14 +93,6 @@ class routeApp extends ConsumerWidget {
       routerDelegate: router.routerDelegate,
     );
 
-    // Future.delayed(Duration(seconds: 1), () {
-    //   //mainでなんとかなんねーかなー
-    //
-    //   loadData(ref);
-    //   print("build");
-    //   ref.watch(diaryModelState);
-    // });
-    // print("return build");
     return material;
   }
 }
