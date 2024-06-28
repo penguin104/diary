@@ -111,6 +111,7 @@ class homeState extends ConsumerState<homeView> {
   void initState() {
     // implement initState
     super.initState();
+    print("homeView");
     // Future.delayed(Duration.zero, () {
     //   loadData(ref);
     //   // ref.refresh(diaryModelState);
@@ -129,7 +130,8 @@ class homeState extends ConsumerState<homeView> {
     final listViewDiary = ListView.builder(
         itemCount: diaryModelSt.length,
         itemBuilder: (c, i) {
-          return modelToHomeDiaryWidget(diaryModelSt[i], context);
+          print("listvew$i");
+          return modelToHomeDiaryWidget(notifire.state[i], context);
         });
 
     final conDiary = Container(
@@ -159,12 +161,12 @@ class homeState extends ConsumerState<homeView> {
           ),
         ));
 
-    final col = Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        conDiary,
-      ],
-    );
+    // final col = Column(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: [
+    //     conDiary,
+    //   ],
+    // );
 
     final homeViewWidget = Scaffold(
       appBar: AppBar(
@@ -177,7 +179,7 @@ class homeState extends ConsumerState<homeView> {
         ),
       ),
       body: Center(
-        child: col,
+        child: conDiary,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: conAddButton,

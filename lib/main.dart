@@ -41,10 +41,6 @@ final diaryModelState = StateProvider<List<diary>>((ref) {
 
   return diaryModel;
 });
-// final futureDiary = FutureProvider((ref) {
-//   return ref.watch(diaryModelState);
-// });
-// final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class routeApp extends ConsumerStatefulWidget {
   // routeApp({super.key});
@@ -60,19 +56,16 @@ class routeState extends ConsumerState<routeApp> {
   void initState() {
     //  implement initState
     super.initState();
-
-    Future.delayed(Duration.zero, () {
-      ref.watch(diaryModelState);
-      loadData(ref);
-    });
+    // Future.delayed(Duration.zero, () {
+    ref.read(diaryModelState);
+    loadData(ref);
+    // });
   }
 
   final router = GoRouter(initialLocation: "/home", routes: [
     GoRoute(
       path: "/home",
-      builder: (context, state) {
-        return homeView();
-      },
+      builder: (context, state) => homeView(),
     ),
     GoRoute(
       path: "/new",
@@ -98,13 +91,13 @@ class routeState extends ConsumerState<routeApp> {
 }
 
 Future<void> main() async {
+  final a = routeApp();
+  final s = ProviderScope(child: a);
+
   WidgetsFlutterBinding.ensureInitialized(); //縦画面に固定
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-
-  final a = routeApp();
-  final s = ProviderScope(child: a);
 
   SystemChrome.setPreferredOrientations([
     // 縦向き

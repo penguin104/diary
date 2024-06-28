@@ -111,7 +111,7 @@ Future<void> saveData(diary saveDiary) async {
   // print("a ${await save.getDbPath()}");
 }
 
-Future<void> loadData(WidgetRef ref) async {
+void loadData(WidgetRef ref) {
   debugPrint("load!");
   final diaryViewDB load = diaryViewDB();
   print("done1");
@@ -122,7 +122,7 @@ Future<void> loadData(WidgetRef ref) async {
     notifier.state.clear();
   }
   print("done5");
-  await load.getDiary(ref);
+  load.getDiary(ref);
   // ref.refresh(diaryModelState);
   print("done6");
   return;
