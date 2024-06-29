@@ -27,7 +27,6 @@ class delDialog extends ConsumerWidget {
           GestureDetector(
               child: Text("はい"),
               onTap: () {
-                // var j = 0;
                 for (int j = 0; j < diaryModelSt.length; j++) {
                   if (diaryMoreList.cnt == diaryModelSt[j].cnt &&
                       diaryMoreList.date == diaryModelSt[j].date) {
@@ -35,24 +34,9 @@ class delDialog extends ConsumerWidget {
                     delData(diaryMoreList);
 
                     debugPrint("del data!");
-                    // if (diaryModelSt.isNotEmpty) {
-                    //   for (j = i; j < diaryModelSt.length - 1; j++) {
-                    //     notifier.state[j] = diaryModelSt[j + 1]; //詰める
-                    //     print("shift!");
-                    //   }
-                    //   if (diaryModelSt.length > 1 &&
-                    //       diaryModelSt[diaryModelSt.length - 1].cnt ==
-                    //           diaryModelSt[diaryModelSt.length - 2].cnt &&
-                    //       diaryModelSt[diaryModelSt.length - 1].title ==
-                    //           diaryModelSt[diaryModelSt.length - 2].title) {
-                    //     diaryModelSt
-                    //         .remove(diaryModelSt[diaryModelSt.length - 1]);
-                    //   }
-                    // }
                   }
                 }
 
-                loadData(ref);
                 context.go("/home");
               }),
         ]);

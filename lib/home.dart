@@ -141,8 +141,6 @@ class homeState extends ConsumerState<homeView> {
     late List<diary> diaryModelSt = ref.watch(diaryModelState);
     var notifire = ref.watch(diaryModelState.notifier);
 
-    // notifire.state.add(diary("test", "test", "test", 0));
-
     final listViewDiary = ListView.builder(
         itemCount: diaryModelSt.length,
         itemBuilder: (c, i) {
