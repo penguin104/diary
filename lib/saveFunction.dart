@@ -24,7 +24,7 @@ class diaryViewDB {
   Future<dynamic> init() async {
     final path = await getDbPath();
 
-    final Future database = openDatabase(
+    final database = openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
@@ -53,6 +53,8 @@ class diaryViewDB {
     Future database = init();
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('diary');
+    print(db);
+    print(maps);
     print("state bef");
     // print(ref.watch(futureDiary)); //todo futureDiaryにdiaryModelStateが反映されてない
 
@@ -111,7 +113,7 @@ Future<void> saveData(diary saveDiary) async {
   // print("a ${await save.getDbPath()}");
 }
 
-void loadData(WidgetRef ref) {
+Future<void> loadData(WidgetRef ref) async {
   debugPrint("load!");
   final diaryViewDB load = diaryViewDB();
   print("done1");
@@ -122,7 +124,7 @@ void loadData(WidgetRef ref) {
     notifier.state.clear();
   }
   print("done5");
-  load.getDiary(ref);
+  await load.getDiary(ref);
   // ref.refresh(diaryModelState);
   print("done6");
   return;

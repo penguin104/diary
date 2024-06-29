@@ -52,13 +52,31 @@ class routeApp extends ConsumerStatefulWidget {
 }
 
 class routeState extends ConsumerState<routeApp> {
+  void loadDiary() {
+    setState(() {
+      loadData(ref);
+    });
+  }
+
   @override
   void initState() {
     //  implement initState
+
+    // Future.sync(() {
+    // loadData(ref);
+    // ref.listen(diaryModelState, (previous, next) {});
+
     super.initState();
+    Future.delayed(Duration.zero, () async {
+      // ref.watch(diaryModelState.notifier).state.clear();
+      // final db = await diaryViewDB();
+      // await db.getDiary(ref);
+      // loadData(ref);
+      // homeState().build(homeState().context);
+    });
+    // });
     // Future.delayed(Duration.zero, () {
-    ref.read(diaryModelState);
-    loadData(ref);
+
     // });
   }
 

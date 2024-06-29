@@ -107,10 +107,24 @@ class homeView extends ConsumerStatefulWidget {
 }
 
 class homeState extends ConsumerState<homeView> {
+  Future<void> load() async {
+    await loadData(ref);
+
+    setState(() {
+      ref.watch(diaryModelState.notifier);
+    });
+  }
+
   @override
   void initState() {
-    // implement initState
     super.initState();
+    Future.delayed(Duration.zero, () async {
+      // ref.watch(diaryModelState.notifier).state.clear();
+      // final db = await diaryViewDB();
+      // await db.getDiary(ref);
+      load();
+      // build(this.context);
+    });
     print("homeView");
     // Future.delayed(Duration.zero, () {
     //   loadData(ref);
@@ -126,6 +140,8 @@ class homeState extends ConsumerState<homeView> {
   Widget build(BuildContext context) {
     late List<diary> diaryModelSt = ref.watch(diaryModelState);
     var notifire = ref.watch(diaryModelState.notifier);
+
+    // notifire.state.add(diary("test", "test", "test", 0));
 
     final listViewDiary = ListView.builder(
         itemCount: diaryModelSt.length,
