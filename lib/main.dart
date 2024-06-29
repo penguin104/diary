@@ -8,11 +8,48 @@ import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart'; //画面固定
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
-//
-// var flag = 0;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:io';
+import 'package:timezone/timezone.dart';
+import 'package:timezone/data/latest_all.dart';
+
+//todo ここからコピペしっかり読むように
+//https://zenn.dev/flutteruniv_dev/articles/434310831e41f3
+Future<void> _requestPermissions() async {
+  if (Platform.isIOS || Platform.isMacOS) {
+    var flutterLocalNotificationsPlugin;
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            MacOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  } else if (Platform.isAndroid) {
+    var flutterLocalNotificationsPlugin;
+
+    final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    await androidImplementation?.requestPermission();
+  }
+}
+
+extension on AndroidFlutterLocalNotificationsPlugin? {
+  requestPermission() {}
+}
+//ここまで
 
 class diary {
   final String date;
