@@ -1,3 +1,11 @@
+android {//追加
+    defaultConfig {
+        // Add This line
+        manifestPlaceholders = [applicationName: "android.app.Application"]
+    }
+
+}
+
 allprojects {
     repositories {
         google()

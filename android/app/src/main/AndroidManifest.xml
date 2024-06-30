@@ -1,5 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.studiocross.text_editor">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    package="com.studiocross.text_editor"-->
     <!--   端末起動時の通知権限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!--    端末のバイブレーション-->
