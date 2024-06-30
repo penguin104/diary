@@ -129,15 +129,15 @@ Future<void> main() async {
     ));
   });
 
-  localNotifications.Initialization();
-  int time = DateTime.now().hour;
-  if (time == DateTime.now()) {
-    bool isCompleted = await localNotifications.SetLocalNotification(
-        "日記を書こう", "日記を書く時間です", DateTime.now());
-    if (isCompleted) {
-      print("通知成功");
-    } else {
-      print("通知失敗");
-    }
-  }
+  // localNotifications.Initialization();
+  // int time = DateTime.now().hour;
+  // if (time == DateTime.now()) {
+  //   bool isCompleted = await localNotifications.SetLocalNotification(
+  //       "日記を書こう", "日記を書く時間です", DateTime.now());
+  //   if (isCompleted) {
+  //     print("通知成功");
+  //   } else {
+  //     print("通知失敗");
+  //   }
+  // }
 }
