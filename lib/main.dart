@@ -9,47 +9,11 @@ import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart'; //画面固定
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'dart:io';
-import 'package:timezone/timezone.dart';
-import 'package:timezone/data/latest_all.dart';
+import 'localNotification.dart';
 
-//todo ここからコピペしっかり読むように
-//https://zenn.dev/flutteruniv_dev/articles/434310831e41f3
-Future<void> _requestPermissions() async {
-  if (Platform.isIOS || Platform.isMacOS) {
-    var flutterLocalNotificationsPlugin;
+//スケジュール通知
 
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            MacOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-  } else if (Platform.isAndroid) {
-    var flutterLocalNotificationsPlugin;
-
-    final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
-        flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
-    await androidImplementation?.requestPermission();
-  }
-}
-
-extension on AndroidFlutterLocalNotificationsPlugin? {
-  requestPermission() {}
-}
-//ここまで
+LocalNotifications localNotifications = new LocalNotifications();
 
 class diary {
   final String date;
@@ -165,5 +129,15 @@ Future<void> main() async {
     ));
   });
 
-  //hello
+  localNotifications.Initialization();
+  int time = DateTime.now().hour;
+  if (time == DateTime.now()) {
+    bool isCompleted = await localNotifications.SetLocalNotification(
+        "日記を書こう", "日記を書く時間です", DateTime.now());
+    if (isCompleted) {
+      print("通知成功");
+    } else {
+      print("通知失敗");
+    }
+  }
 }
