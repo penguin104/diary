@@ -8,11 +8,12 @@ import 'package:go_router/go_router.dart';
 import 'saveFunction.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart'; //画面固定
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
-//
-// var flag = 0;
+import 'localNotification.dart';
+
+//スケジュール通知
+
+LocalNotifications localNotifications = new LocalNotifications();
 
 class diary {
   final String date;
@@ -128,5 +129,15 @@ Future<void> main() async {
     ));
   });
 
-  //hello
+  // localNotifications.Initialization();
+  // int time = DateTime.now().hour;
+  // if (time == DateTime.now()) {
+  //   bool isCompleted = await localNotifications.SetLocalNotification(
+  //       "日記を書こう", "日記を書く時間です", DateTime.now());
+  //   if (isCompleted) {
+  //     print("通知成功");
+  //   } else {
+  //     print("通知失敗");
+  //   }
+  // }
 }
